@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36511.14 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CineTPI.Domain", "CineTPI.Domain\CineTPI.Domain.csproj", "{5956661D-B884-4806-A4AC-FDD4743B46DC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CineTPI.API", "CineTPI.API\CineTPI.API.csproj", "{375288C8-3793-4DAB-AF87-643DF8FF8DFC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5956661D-B884-4806-A4AC-FDD4743B46DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5956661D-B884-4806-A4AC-FDD4743B46DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5956661D-B884-4806-A4AC-FDD4743B46DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5956661D-B884-4806-A4AC-FDD4743B46DC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{375288C8-3793-4DAB-AF87-643DF8FF8DFC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{375288C8-3793-4DAB-AF87-643DF8FF8DFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{375288C8-3793-4DAB-AF87-643DF8FF8DFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{375288C8-3793-4DAB-AF87-643DF8FF8DFC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8B0A7A18-C9F4-42FD-BBC7-CE53E1EA1B6F}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,278 @@
+﻿{
+   "CodeGenerationMode": 4,
+   "ContextClassName": "CineDBContext",
+   "ContextNamespace": null,
+   "FilterSchemas": false,
+   "IncludeConnectionString": false,
+   "MinimumProductVersion": "2.6.1166",
+   "ModelNamespace": null,
+   "OutputContextPath": null,
+   "OutputPath": "Models",
+   "PreserveCasingWithRegex": true,
+   "ProjectRootNamespace": "CineTPI.Domain",
+   "Schemas": null,
+   "SelectedHandlebarsLanguage": 2,
+   "SelectedToBeGenerated": 0,
+   "T4TemplatePath": null,
+   "Tables": [
+      {
+         "Name": "[dbo].[actores]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[barrios]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[butacas]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[cajeros]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[canales_ventas]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[ciudades]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[clasificaciones]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[clientes]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[clientes_contactos]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[combos]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[condiciones_IVA]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[contactos]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[detalle_facturas]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[dias_promociones]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[direcciones]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[directores]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[distribuidores]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[entradas]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[estados_butacas]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[estados_compras]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[estados_promociones]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[estados_reservas]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[facturas]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[facturas_formas_pagos]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[financieras]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[formas_pagos]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[formatos_peliculas]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[funciones]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[generos]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[horarios]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[idiomas]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[marcas]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[paises]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[peliculas]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[peliculas_actores]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[peliculas_generos]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[peliculas_idiomas]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[preferencias_clientes]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[productos_combos]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[productos_shop]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[promociones]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[promociones_funciones]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[promociones_horarios]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[provincias]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[puntuaciones]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[resenias_peliculas]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[reserva_detalle]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[reservas]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[salas]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[sucursales]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[tipos_butacas]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[tipos_combos]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[tipos_contactos]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[tipos_documentos]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[tipos_productos]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[tipos_promociones]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[tipos_salas]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[turnos]",
+         "ObjectType": 0
+      }
+   ],
+   "UiHint": null,
+   "UncountableWords": null,
+   "UseAsyncStoredProcedureCalls": true,
+   "UseBoolPropertiesWithoutDefaultSql": false,
+   "UseDatabaseNames": false,
+   "UseDatabaseNamesForRoutines": true,
+   "UseDateOnlyTimeOnly": true,
+   "UseDbContextSplitting": false,
+   "UseDecimalDataAnnotationForSprocResult": true,
+   "UseFluentApiOnly": true,
+   "UseHandleBars": false,
+   "UseHierarchyId": false,
+   "UseInflector": true,
+   "UseInternalAccessModifiersForSprocsAndFunctions": false,
+   "UseLegacyPluralizer": false,
+   "UseManyToManyEntity": false,
+   "UseNoDefaultConstructor": false,
+   "UseNoNavigations": false,
+   "UseNoObjectFilter": false,
+   "UseNodaTime": false,
+   "UseNullableReferences": false,
+   "UsePrefixNavigationNaming": false,
+   "UseSchemaFolders": false,
+   "UseSchemaNamespaces": false,
+   "UseSpatial": false,
+   "UseT4": false,
+   "UseT4Split": false
+}
