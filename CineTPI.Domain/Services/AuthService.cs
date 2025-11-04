@@ -9,6 +9,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims; 
 using System.Text;
 using System.Threading.Tasks;
+using BCrypt.Net;
 
 namespace CineTPI.Domain.Services
 {
@@ -27,7 +28,8 @@ namespace CineTPI.Domain.Services
         {
             // 1. Buscar al usuario por su NroDoc
 
-            var cliente = await _clienteRepository.GetClienteByDocAsync(loginRequest.NroDoc);
+            var nroDocLimpio = loginRequest.NroDoc.Trim();
+            var cliente = await _clienteRepository.GetClienteByDocAsync(nroDocLimpio);
 
             if (cliente == null)
             {
@@ -35,7 +37,10 @@ namespace CineTPI.Domain.Services
             }
 
             // 2. Verificar la contraseña usando BCrypt
-            bool esPasswordValido = BCrypt.Net.BCrypt.Verify(loginRequest.Password, cliente.PasswordHash);
+            var inputPassword = loginRequest.Password.Trim();
+            var dbHash = cliente.PasswordHash.Trim();
+
+            bool esPasswordValido = BCrypt.Net.BCrypt.Verify(inputPassword, dbHash);
 
             if (!esPasswordValido)
             {

@@ -28,6 +28,13 @@ namespace CineTPI.Domain.Repositories
                 .FirstOrDefaultAsync(c => c.NroDoc == nroDoc && c.PasswordHash == passwordHash);
         }
 
+        public async Task<Cliente> GetClienteByDocAsync(string nroDoc)
+        {
+            // Busca al cliente solo por NroDoc
+            return await _context.Clientes
+                .FirstOrDefaultAsync(c => c.NroDoc == nroDoc);
+        }
+
         // --- Métodos Genéricos (CRUD) ---
 
         public async Task<Cliente> GetByIdAsync(int id)

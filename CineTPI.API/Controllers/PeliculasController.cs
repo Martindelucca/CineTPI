@@ -1,16 +1,18 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using CineTPI.Domain.DTOs;    
-using CineTPI.Domain.Models; 
-using CineTPI.Domain.Interfaces; 
+using CineTPI.Domain.DTOs;
+using CineTPI.Domain.Models;
+using CineTPI.Domain.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 
-namespace CineTPI.API
+namespace CineTPI.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class PeliculasController : ControllerBase
     {
         private readonly IPeliculaRepository _peliculaRepository;
@@ -77,6 +79,7 @@ namespace CineTPI.API
 
         // Crea una nueva película
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> CreatePelicula([FromBody] PeliculaCreateDTO peliculaDto)
         {
             if (peliculaDto == null)
@@ -103,6 +106,7 @@ namespace CineTPI.API
         }
 
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdatePelicula(int id, [FromBody] Pelicula peliculaActualizada)
         {
             if (id != peliculaActualizada.IdPelicula)
@@ -117,6 +121,7 @@ namespace CineTPI.API
         }
         // Borra una película
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeletePelicula(int id)
         {
             var pelicula = await _peliculaRepository.GetByIdAsync(id);
