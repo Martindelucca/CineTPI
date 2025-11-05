@@ -4,6 +4,12 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims; // Para leer el ID del token
 using System.Threading.Tasks;
+using System;
+using CineTPI.Domain.Models;
+using CineTPI.Domain;
+using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+
 
 namespace CineTPI.API.Controllers
 {
@@ -33,7 +39,7 @@ namespace CineTPI.API.Controllers
 
             var codCliente = int.Parse(idClienteClaim.Value);
 
-            // --- Fin Seguridad ---
+
 
             try
             {

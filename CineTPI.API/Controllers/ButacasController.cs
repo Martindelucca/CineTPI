@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace CineTPI.API.Controllers
 {
     [Route("api/[controller]")]
-    [Authorize] // ¡Protegemos todo el controlador!
+    [Authorize] 
     public class ButacasController : ControllerBase
     {
         private readonly IButacaRepository _butacaRepository;

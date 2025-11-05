@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Soporte de Películas - Cine TPI</title>
+    <script src="js/auth.js"></script>
+    <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border: 1px solid #ddd; padding: 8px; }
+        th { background-color: #f2f2f2; }
+        form div { margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="index.html">← Volver al Menú</a>
+        <h1>Gestión de Películas (ABMC)</h1>
+    </header>
+
+    <main>
+        <h3>Formulario de Película</h3>
+        <form id="form-pelicula">
+            <input type="hidden" id="pelicula-id" value="0">
+
+            <div>
+                <label for="titulo">Título:</label>
+                <input type="text" id="titulo" required>
+            </div>
+            <div>
+                <label for="descripcion">Descripción:</label>
+                <textarea id="descripcion"></textarea>
+            </div>
+            <div>
+                <label for="fecha-lanzamiento">Fecha Lanzamiento:</label>
+                <input type="date" id="fecha-lanzamiento" required>
+            </div>
+            <button type="submit" id="btn-guardar">Guardar</button>
+            <button type="button" id="btn-cancelar" style="display:none;">Cancelar Edición</button>
+        </form>
+
+        <hr>
+
+        <h3>Películas Existentes</h3>
+        <table id="tabla-peliculas">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Título</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody id="tbody-peliculas">
+                </tbody>
+        </table>
+    </main>
+
+    <script src="js/soporte-peliculas.js"></script>
+</body>
+</html>

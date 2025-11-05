@@ -6,6 +6,11 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System;
+using Microsoft.AspNetCore.Http;
+using CineTPI.Domain.Models;
+using CineTPI.Domain;  
+
 
 namespace CineTPI.API.Controllers
 {

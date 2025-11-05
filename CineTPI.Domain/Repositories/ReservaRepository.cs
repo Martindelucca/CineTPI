@@ -23,11 +23,6 @@ namespace CineTPI.Domain.Repositories
         }
 
 
-        public Task AddAsync(Reserva entity)
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task<Reserva> CreateReservaAsync(ReservaCreateDto reservaDto, int codCliente)
         {
             using (var transaction = await _context.Database.BeginTransactionAsync())
@@ -44,9 +39,7 @@ namespace CineTPI.Domain.Repositories
                         throw new Exception("La función seleccionada no existe.");
                     }
 
-                    // 3. ¡REQUERIMIENTO DEL TPI! Calcular la expiración
-                    // La reserva vence 2 horas ANTES de la función.
-                    // (Necesitamos combinar 'fecha' (DateOnly) y 'horario' (TimeSpan) de la BBDD)
+
                     var horario = await _context.Horarios.FindAsync(funcion.IdHorario);
                     var fechaHoraInicio = funcion.Fecha.ToDateTime(horario.Horario1);
                     var fechaExpiracion = fechaHoraInicio.AddHours(-2);
@@ -56,9 +49,9 @@ namespace CineTPI.Domain.Repositories
                     {
                         Fecha = DateOnly.FromDateTime(DateTime.Now), // O DateOnly.FromDateTime(DateTime.Now) si tu columna es 'date'
                         CodCliente = codCliente,
-                        IdEstadoReserva = 1, // Asumimos 1 = "Activa"
-                        MontoReserva = 0 // (Podríamos calcular el monto aquí)
-                        // ¡CAMPO IMPORTANTE! Tu BBDD no tiene 'fecha_expiracion'.
+                        IdEstadoReserva = 1, 
+                        MontoReserva = 0 
+                        //  la BBDD no tiene 'fecha_expiracion'.
                         // La lógica de "vencimiento" tendrá que ser un SP o un Job.
                         // Por ahora, solo la creamos.
                     };
@@ -95,23 +88,36 @@ namespace CineTPI.Domain.Repositories
             }
         }
 
+        public async Task<Reserva> GetByIdAsync(int id)
+        {
+            // Implementación real para que el controlador funcione
+            return await _context.Reservas
+                                 .AsNoTracking()
+                                 .FirstOrDefaultAsync(r => r.IdReserva == id);
+        }
+
+        // (También deberías agregar "stubs" o implementaciones vacías
+        // para los otros métodos que exige la interfaz)
+        public Task AddAsync(Reserva entity)
+        {
+            _context.Reservas.Add(entity);
+            return _context.SaveChangesAsync();
+        }
+
         public Task DeleteAsync(int id)
         {
+            // ... (lógica de borrado)
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<Reserva>> GetAllAsync()
+        public async Task<IEnumerable<Reserva>> GetAllAsync()
         {
-            throw new NotImplementedException();
-        }
-
-        public Task<Reserva> GetByIdAsync(int id)
-        {
-            throw new NotImplementedException();
+            return await _context.Reservas.AsNoTracking().ToListAsync();
         }
 
         public Task UpdateAsync(Reserva entity)
         {
+            // ... (lógica de update)
             throw new NotImplementedException();
         }
     }
