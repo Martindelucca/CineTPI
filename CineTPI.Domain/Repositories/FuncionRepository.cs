@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CineTPI.Domain.DTOs;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace CineTPI.Domain.Repositories
@@ -56,16 +57,32 @@ namespace CineTPI.Domain.Repositories
 
         // --- Métodos Específicos ---
 
-        public async Task<IEnumerable<Funcion>> GetFuncionesPorPeliculaAsync(int idPelicula)
+        public async Task<IEnumerable<FuncionDTO>> GetFuncionesPorPeliculaAsync(int idPelicula)
         {
             var hoy = DateOnly.FromDateTime(DateTime.Today);
 
+            // 1. Forzamos la carga con Include (que ahora SÍ funcionará)
             return await _context.Funciones
+                .Include(f => f.IdSalaNavigation)    // <-- Carga Ansiosa de Sala
+                .Include(f => f.IdHorarioNavigation) // <-- Carga Ansiosa de Horario
+                .AsNoTracking() // <-- Buena práctica para consultas de solo lectura
+
+                // 2. Filtramos
                 .Where(f => f.IdPelicula == idPelicula && f.Fecha >= hoy)
-                .Include(f => f.IdSalaNavigation) // Traemos la info de la sala
-                .Include(f => f.IdHorarioNavigation) // Traemos la info del horario
                 .OrderBy(f => f.Fecha)
-                .ThenBy(f => f.IdHorarioNavigation.Horario1) // Ordena por fecha y luego por hora
+
+                // 3. Proyectamos a DTO (esto evita 100% los errores de bucle JSON)
+                .Select(f => new FuncionDTO
+                {
+                    IdFuncion = f.IdFuncion,
+                    Fecha = f.Fecha.ToShortDateString(), // Usamos la corrección de ayer
+
+                    NombreSala = f.IdSalaNavigation.NroSala.HasValue
+                                 ? $"Sala {f.IdSalaNavigation.NroSala.Value}"
+                                 : "Sala no disp.",
+
+                    Horario = f.IdHorarioNavigation.Horario1.ToString(@"hh\:mm") ?? "Horario no disp."
+                })
                 .ToListAsync();
         }
 
@@ -75,6 +92,10 @@ namespace CineTPI.Domain.Repositories
             // Requiere cruzar [tickets] (tabla 'entradas') y [reservas_detalle]
             // La implementaremos cuando construyamos el endpoint de "selección de butacas".
             throw new NotImplementedException("Esta lógica se implementará en la capa de Servicios o aquí más adelante.");
+        }
+        public CineDBContext GetDbContext()
+        {
+            return _context;
         }
     }
 }

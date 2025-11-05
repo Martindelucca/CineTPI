@@ -1,4 +1,5 @@
-﻿using CineTPI.Domain.Models;
+﻿using CineTPI.Domain.DTOs;
+using CineTPI.Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,5 +12,7 @@ namespace CineTPI.Domain.Interfaces
     {
         // Método clave: Traer todas las butacas de una sala específica
         Task<IEnumerable<Butaca>> GetButacasPorSalaAsync(int idSala);
+
+        Task<IEnumerable<ButacaEstadoDto>> GetEstadoButacasPorFuncionAsync(int idFuncion);
     }
 }

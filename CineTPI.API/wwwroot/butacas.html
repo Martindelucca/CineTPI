@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-R">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seleccionar Butacas - Cine TPI</title>
+    <script src="js/auth.js"></script> 
+    <style>
+        /* CSS básico para la grilla de butacas */
+        #butacas-grid {
+            display: grid;
+            grid-template-columns: repeat(10, 30px); /* Asumimos 10 butacas por fila */
+            gap: 5px;
+        }
+        .butaca {
+            width: 30px;
+            height: 30px;
+            border: 1px solid #555;
+            background-color: #ccc; /* Gris (Disponible) */
+            cursor: pointer;
+            text-align: center;
+            line-height: 30px;
+            font-size: 10px;
+        }
+        .butaca.Vendida, .butaca.Reservada {
+            background-color: #f44336; /* Rojo (Ocupada) */
+            cursor: not-allowed;
+        }
+        .butaca.Seleccionada {
+            background-color: #4CAF50; /* Verde (Tu selección) */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Seleccione sus Butacas</h1>
+    </header>
+
+    <main>
+        <div id="butacas-grid"></div>
+
+        <hr>
+        <h3>Tus seleccionadas:</h3>
+        <ul id="seleccion-lista"></ul>
+        <button id="btn-confirmar">Confirmar Reserva</button>
+    </main>
+
+    <script src="js/butacas.js"></script>
+</body>
+</html>

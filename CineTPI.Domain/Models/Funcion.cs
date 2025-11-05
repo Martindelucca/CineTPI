@@ -19,11 +19,11 @@ public partial class Funcion
 
     public virtual ICollection<Entrada> Entrada { get; set; } = new List<Entrada>();
 
-    public virtual Horario IdHorarioNavigation { get; set; }
+    public  Horario IdHorarioNavigation { get; set; }
 
-    public virtual Pelicula IdPeliculaNavigation { get; set; }
+    public Pelicula IdPeliculaNavigation { get; set; }
 
-    public virtual Sala IdSalaNavigation { get; set; }
+    public Sala IdSalaNavigation { get; set; }
 
     public virtual ICollection<PromocionesFuncione> PromocionesFunciones { get; set; } = new List<PromocionesFuncione>();
 

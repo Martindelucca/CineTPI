@@ -11,7 +11,7 @@ public partial class Horario
 
     public TimeOnly Horario1 { get; set; }
 
-    public virtual ICollection<Funcion> Funciones { get; set; } = new List<Funcion>();
+    public ICollection<Funcion> Funciones { get; set; } = new List<Funcion>();
 
     public virtual ICollection<PromocionesHorario> PromocionesHorarios { get; set; } = new List<PromocionesHorario>();
 }

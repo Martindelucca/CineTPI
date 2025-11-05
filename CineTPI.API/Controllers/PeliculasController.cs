@@ -45,6 +45,7 @@ namespace CineTPI.API.Controllers
 
         // Obtiene solo las películas que tienen funciones activas
         [HttpGet("cartelera")] 
+        [Authorize]
         public async Task<IActionResult> GetPeliculasEnCartelera()
         {
             var peliculas = await _peliculaRepository.GetPeliculasEnCarteleraAsync();

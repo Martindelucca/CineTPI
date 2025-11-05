@@ -16,4 +16,8 @@
     <ProjectReference Include="..\CineTPI.Domain\CineTPI.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\" />
+  </ItemGroup>
+
 </Project>

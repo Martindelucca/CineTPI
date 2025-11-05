@@ -19,8 +19,13 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDbContext<CineDBContext>(options =>
     options.UseSqlServer(connectionString));
 
-// Servicios básicos de API
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        // Forzamos a que la API use camelCase (ej: "idFuncion")
+        // en lugar de PascalCase (ej: "IdFuncion") para el JSON.
+        options.JsonSerializerOptions.PropertyNamingPolicy = System.Text.Json.JsonNamingPolicy.CamelCase;
+    });
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -28,6 +33,8 @@ builder.Services.AddScoped<IPeliculaRepository, PeliculaRepository>();
 builder.Services.AddScoped<IFuncionRepository, FuncionRepository>();
 builder.Services.AddScoped<IButacaRepository, ButacaRepository>();
 builder.Services.AddScoped<IClienteRepository, ClienteRepository>();
+builder.Services.AddScoped<IButacaRepository, ButacaRepository>();
+builder.Services.AddScoped<IReservaRepository, ReservaRepository>();
 
 // 7. Registrar el AuthService
 builder.Services.AddScoped<IAuthService, AuthService>();
@@ -59,10 +66,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+app.UseDefaultFiles(); // <-- Busca index.html como página por defecto
+app.UseStaticFiles();  // <-- Permite servir archivos desde wwwroot
 
 app.UseHttpsRedirection();
-
-app.UseAuthorization();
 
 app.UseAuthentication(); // <-- ¿Quién sos?
 app.UseAuthorization();  // <-- ¿Tenés permiso?

@@ -4,12 +4,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CineTPI.Domain.DTOs;
 
 namespace CineTPI.Domain.Interfaces
 {
     public interface IFuncionRepository : IRepository<Funcion>
     {
-        Task<IEnumerable<Funcion>> GetFuncionesPorPeliculaAsync(int idPelicula);
+        Task<IEnumerable<FuncionDTO>> GetFuncionesPorPeliculaAsync(int idPelicula);
         Task<IEnumerable<Butaca>> GetButacasOcupadasAsync(int idFuncion);
+
+        CineDBContext GetDbContext();
     }
 }

@@ -17,7 +17,7 @@ public partial class Sala
 
     public virtual ICollection<Butaca> Butacas { get; set; } = new List<Butaca>();
 
-    public virtual ICollection<Funcion> Funciones { get; set; } = new List<Funcion>();
+    public ICollection<Funcion> Funciones { get; set; } = new List<Funcion>();
 
     public virtual Sucursale IdSucursalNavigation { get; set; }
 
