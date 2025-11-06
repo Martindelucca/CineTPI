@@ -2,11 +2,16 @@
 #nullable disable
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CineTPI.Domain.Models;
 
 public partial class Butaca
 {
+    [Key]
+    [Column("id_pelicula")]
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int IdButaca { get; set; }
 
     public int IdTipoButacas { get; set; }

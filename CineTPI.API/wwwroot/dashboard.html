@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard - Cine TPI</title>
+    <script src="js/auth.js"></script> 
+    <style>
+        /* (Estilos de tabla, como en soporte-peliculas.html) */
+    </style>
+</head>
+<body>
+    <header>
+        <a href="index.html">← Volver al Menú</a>
+        <h1>Dashboard de Reportes</h1>
+    </header>
+
+    <main>
+        <h3>Reservas por Estado (Este Mes)</h3>
+        <table id="tabla-reporte-reservas">
+            <thead>
+                <tr>
+                    <th>Estado</th>
+                    <th>Cantidad</th>
+                    <th>Total Recaudado</th>
+                </tr>
+            </thead>
+            <tbody id="tbody-reporte-reservas">
+                <tr><td colspan="3">Cargando...</td></tr>
+            </tbody>
+        </table>
+        <hr>
+<h3>Recaudación por Película</h3>
+<form id="form-recaudacion">
+    <label for="fecha-desde">Fecha Desde:</label>
+    <input type="date" id="fecha-desde" required>
+    
+    <label for="fecha-hasta">Fecha Hasta:</label>
+    <input type="date" id="fecha-hasta" required>
+    
+    <button type="submit">Consultar</button>
+</form>
+
+<table id="tabla-reporte-recaudacion">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Película</th>
+            <th>Entradas Vendidas</th>
+            <th>Total Recaudado</th>
+        </tr>
+    </thead>
+    <tbody id="tbody-reporte-recaudacion">
+        <tr><td colspan="4">Ingrese un rango de fechas...</td></tr>
+    </tbody>
+</table>
+
+<hr>
+<h3>Top Clientes (Mejores Clientes)</h3>
+<table id="tabla-reporte-clientes">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Películas Vistas</th>
+            <th>Total Entradas</th>
+            <th>Total Gastado</th>
+        </tr>
+    </thead>
+    <tbody id="tbody-reporte-clientes">
+        <tr><td colspan="5">Cargando...</td></tr>
+    </tbody>
+</table>
+        
+        </main>
+
+    <script src="js/dashboard.js"></script>
+</body>
+</html>

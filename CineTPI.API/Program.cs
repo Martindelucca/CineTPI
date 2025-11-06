@@ -35,6 +35,7 @@ builder.Services.AddScoped<IButacaRepository, ButacaRepository>();
 builder.Services.AddScoped<IClienteRepository, ClienteRepository>();
 builder.Services.AddScoped<IButacaRepository, ButacaRepository>();
 builder.Services.AddScoped<IReservaRepository, ReservaRepository>();
+builder.Services.AddScoped<IDashboardRepository, DashboardRepository>();
 
 // 7. Registrar el AuthService
 builder.Services.AddScoped<IAuthService, AuthService>();

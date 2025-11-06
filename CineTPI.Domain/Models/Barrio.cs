@@ -2,11 +2,16 @@
 #nullable disable
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CineTPI.Domain.Models;
 
 public partial class Barrio
 {
+    [Key]
+    [Column("id_pelicula")]
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int IdBarrio { get; set; }
 
     public string Barrio1 { get; set; }

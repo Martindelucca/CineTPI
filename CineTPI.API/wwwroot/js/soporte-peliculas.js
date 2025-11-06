@@ -50,27 +50,44 @@ document.addEventListener('DOMContentLoaded', function () {
             tbody.appendChild(tr);
         });
     }
+    delete pelicula.idPelicula;
+
+if (pelicula.idPelicula === 0 || pelicula.idPelicula === "0") {
+    delete pelicula.idPelicula; // 🔥 Esto elimina el campo del JSON antes de enviarlo
+}
 
     // --- 4. LÓGICA DEL FORMULARIO (POST y PUT) ---
     form.addEventListener('submit', async function (e) {
         e.preventDefault();
 
-        const id = inputId.value; // 0 si es Nuevo, >0 si es Edición
-        const esNuevo = (id === '0');
+        const id = parseInt(inputId.value); // 0 si es nuevo
+        const esNuevo = id === 0;
 
-        // Creamos el DTO (¡en PascalCase, como aprendimos!)
-        const peliculaDto = {
-            IdPelicula: parseInt(id),
-            Titulo: inputTitulo.value,
-            Descripcion: inputDescripcion.value,
-            FechaLanzamiento: inputFecha.value
-            // (Aquí faltan las otras propiedades como IdPais, etc.
-            // La API fallará si son NOT NULL en la BBDD)
-        };
+        let peliculaDto = {};
+        let method = '';
+        let url = '';
 
-        // Definimos el método y la URL
-        const method = esNuevo ? 'POST' : 'PUT';
-        const url = esNuevo ? API_URL : `${API_URL}/${id}`;
+        if (esNuevo) {
+            // --- ALTA (POST) ---
+            method = 'POST';
+            url = API_URL;
+            // ✅ CAMBIO: No enviamos el idPelicula en el JSON
+            peliculaDto = {
+                titulo: inputTitulo.value,
+                descripcion: inputDescripcion.value,
+                fechaLanzamiento: inputFecha.value
+            };
+        } else {
+            // --- MODIFICACIÓN (PUT) ---
+            method = 'PUT';
+            url = `${API_URL}/${id}`;
+            peliculaDto = {
+                idPelicula: id,
+                titulo: inputTitulo.value,
+                descripcion: inputDescripcion.value,
+                fechaLanzamiento: inputFecha.value
+            };
+        }
 
         try {
             const response = await fetch(url, {
@@ -87,11 +104,12 @@ document.addEventListener('DOMContentLoaded', function () {
                 resetFormulario();
                 cargarPeliculas(); // Recargamos la tabla
             } else {
-                const error = await response.json();
-                alert(`Error: ${error.title || 'No se pudo guardar.'}`);
+                const error = await response.text(); // ✅ CAMBIO: texto directo, no JSON
+                alert(`Error: ${error}`);
             }
         } catch (error) {
             console.error('Error al guardar:', error);
+            alert('Error de conexión con el servidor.');
         }
     });
 
@@ -122,7 +140,6 @@ document.addEventListener('DOMContentLoaded', function () {
         // Botón EDITAR (Prepara el formulario)
         if (e.target.classList.contains('btn-editar')) {
             const id = e.target.dataset.id;
-            // Usamos el endpoint GET por ID para traer los datos completos
             const response = await fetch(`${API_URL}/${id}`, {
                 headers: { 'Authorization': `Bearer ${token}` }
             });
@@ -134,7 +151,7 @@ document.addEventListener('DOMContentLoaded', function () {
             inputId.value = pelicula.idPelicula;
             inputTitulo.value = pelicula.titulo;
             inputDescripcion.value = pelicula.descripcion;
-            inputFecha.value = pelicula.fechaLanzamiento.split('T')[0]; // Formateamos la fecha para el input
+            inputFecha.value = pelicula.fechaLanzamiento.split('T')[0]; // Fecha ISO → formato input
 
             btnGuardar.textContent = 'Actualizar';
             btnCancelar.style.display = 'inline-block';

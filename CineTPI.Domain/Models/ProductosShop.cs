@@ -7,6 +7,9 @@ namespace CineTPI.Domain.Models;
 
 public partial class ProductosShop
 {
+    [Key]
+    [Column("id_pelicula")]
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int IdProductoShop { get; set; }
 
     public string Nombre { get; set; }

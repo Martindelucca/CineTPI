@@ -2,15 +2,23 @@
 #nullable disable
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CineTPI.Domain.Models;
 
 public partial class Pelicula
 {
+    [Key]
+    [Column("id_pelicula")]
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)] // 🔥 CLAVE para que EF no intente insertarlo
     public int IdPelicula { get; set; }
 
+    [Required]
+    [MaxLength(200)]
     public string Titulo { get; set; }
 
+    [MaxLength(500)]
     public string Descripcion { get; set; }
 
     public DateOnly FechaLanzamiento { get; set; }

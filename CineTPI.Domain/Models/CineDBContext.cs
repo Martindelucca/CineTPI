@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
+using CineTPI.Domain.DTOs;
 
 namespace CineTPI.Domain.Models;
 
@@ -883,7 +884,8 @@ public partial class CineDBContext : DbContext
 
             entity.Property(e => e.IdPelicula)
                 .ValueGeneratedNever()
-                .HasColumnName("id_pelicula");
+                .HasColumnName("id_pelicula")
+                .ValueGeneratedOnAdd();
             entity.Property(e => e.Descripcion)
                 .HasMaxLength(2000)
                 .IsUnicode(false)
@@ -1467,6 +1469,12 @@ public partial class CineDBContext : DbContext
                 .IsUnicode(false)
                 .HasColumnName("turno");
         });
+
+
+        modelBuilder.Entity<ReporteReservasDto>().HasNoKey();
+        modelBuilder.Entity<ReporteReacaudacionDto>().HasNoKey();
+        modelBuilder.Entity<ReporteClientesFrecuentesDto>().HasNoKey();
+
 
         OnModelCreatingPartial(modelBuilder);
     }

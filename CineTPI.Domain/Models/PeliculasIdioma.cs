@@ -7,6 +7,9 @@ namespace CineTPI.Domain.Models;
 
 public partial class PeliculasIdioma
 {
+    [Key]
+    [Column("id_pelicula")]
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int IdPeliculaIdioma { get; set; }
 
     public int IdPelicula { get; set; }

@@ -81,30 +81,40 @@ namespace CineTPI.API.Controllers
         // Crea una nueva película
         [HttpPost]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> CreatePelicula([FromBody] PeliculaCreateDTO peliculaDto)
+        public async Task<IActionResult> CreatePelicula([FromBody] PeliculaCreateDTO dto)
         {
-            if (peliculaDto == null)
+            try
             {
-                return BadRequest(); 
+                if (dto == null)
+                    return BadRequest("Datos inválidos.");
+
+                // Log para depurar
+                Console.WriteLine("🎬 DTO recibido: " + System.Text.Json.JsonSerializer.Serialize(dto));
+
+                // ✅ Creamos una entidad nueva SIN IdPelicula
+                var pelicula = new Pelicula
+                {
+                    Titulo = dto.Titulo,
+                    Descripcion = dto.Descripcion,
+                    FechaLanzamiento = (DateOnly)dto.FechaLanzamiento
+                };
+
+                await _peliculaRepository.AddAsync(pelicula);
+
+                return CreatedAtAction(nameof(GetPelicula),
+                    new { id = pelicula.IdPelicula },
+                    pelicula);
             }
-
-
-            var pelicula = new Pelicula
+            catch (Exception ex)
             {
-                Titulo = peliculaDto.Titulo,
-                Descripcion = peliculaDto.Descripcion,
-                FechaLanzamiento = peliculaDto.FechaLanzamiento,
-                IdPais = peliculaDto.IdPais,
-                IdFormatoPelicula = peliculaDto.IdFormatoPelicula,
-                IdClasificacion = peliculaDto.IdClasificacion,
-                IdDistribuidor = peliculaDto.IdDistribuidor,
-                IdDirector = peliculaDto.IdDirector
-            };
-
-            await _peliculaRepository.AddAsync(pelicula);
-
-            return CreatedAtAction(nameof(GetPelicula), new { id = pelicula.IdPelicula }, pelicula);
+                Console.WriteLine("⚠️ Error al guardar película:");
+                Console.WriteLine(ex.ToString());
+                return BadRequest("No se pudo guardar la película.");
+            }
         }
+
+
+        
 
         [HttpPut("{id}")]
         [Authorize(Roles = "Admin")]
