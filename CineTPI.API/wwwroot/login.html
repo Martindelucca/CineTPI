@@ -1,29 +1,36 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Cine TPI</title>
-    </head>
+  <meta charset="UTF-8" />
+  <title>Inicio de Sesión | CineTPI</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="css/login.css">
+</head>
 <body>
+  <header class="site-header">
+    <div class="brand">🎬 <b>Cine</b>TPI</div>
+  </header>
 
-    <h1>Acceso al Sistema</h1>
+  <main class="container">
+    <section class="card">
+      <h1>Iniciar Sesión</h1>
+      <p class="sub">Accedé a la cartelera de películas</p>
 
-    <form id="login-form">
-        <div>
-            <label for="nroDoc">Usuario (Nro. Doc):</label>
-            <input type="text" id="nroDoc" name="nroDoc" required>
-        </div>
-        <div>
-            <label for="password">Contraseña:</label>
-            <input type="password" id="password" name="password" required>
-        </div>
-        <button type="submit">Ingresar</button>
-    </form>
+      <form id="login-form">
+        <label for="nroDoc">Nro. de Documento</label>
+        <input type="text" id="nroDoc" placeholder="admin o DNI" required>
 
-    <p id="error-message" style="color: red;"></p>
+        <label for="password">Contraseña</label>
+        <input type="password" id="password" placeholder="••••••••" required>
 
-    <script src="js/login.js"></script>
+        <button type="submit" class="btn">Ingresar</button>
+        <p id="error-message" class="error"></p>
+      </form>
+    </section>
+  </main>
 
+  <footer class="site-footer">© 2025 CineTPI | UTN Córdoba</footer>
+
+  <script src="js/login.js" defer></script>
 </body>
 </html>

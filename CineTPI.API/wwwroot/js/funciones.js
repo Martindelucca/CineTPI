@@ -1,102 +1,68 @@
-// Esperamos a que todo el HTML esté cargado
-document.addEventListener('DOMContentLoaded', function() {
-    
-    // 1. Obtenemos el ID de la película de la URL
-    // (Ej: funciones.html?id=5)
-    const params = new URLSearchParams(window.location.search);
-    const idPelicula = params.get('id');
+// --- Esperamos a que el HTML cargue completamente ---
+document.addEventListener("DOMContentLoaded", async () => {
+  const params = new URLSearchParams(window.location.search);
+  const idPelicula = params.get("id");
+  const lista = document.getElementById("lista-funciones");
 
-    if (!idPelicula) {
-        alert('No se especificó ninguna película.');
-        window.location.href = 'index.html';
-        return;
+  // --- Validamos ID ---
+  if (!idPelicula) {
+    lista.innerHTML = `<p class="msg-error">No se seleccionó ninguna película.</p>`;
+    return;
+  }
+
+  // --- Obtenemos token ---
+  const token = localStorage.getItem("token");
+  if (!token) {
+    alert("⚠️ Debes iniciar sesión para ver las funciones.");
+    window.location.href = "login.html";
+    return;
+  }
+
+  // --- Mostramos mensaje de carga ---
+  lista.innerHTML = `<p class="msg-cargando">Cargando funciones...</p>`;
+
+  try {
+    // --- Llamada a la API ---
+    const response = await fetch(`/api/funciones/pelicula/${idPelicula}`, {
+      method: "GET",
+      headers: {
+        "Authorization": `Bearer ${token}`,
+        "Content-Type": "application/json"
+      }
+    });
+
+    // --- Verificación de estado ---
+    if (response.status === 401) {
+      alert("⚠️ Sesión expirada o no autorizada. Por favor, inicia sesión nuevamente.");
+      localStorage.removeItem("token");
+      window.location.href = "login.html";
+      return;
     }
 
-    const funcionesList = document.getElementById('funciones-list');
-    const peliculaTitulo = document.getElementById('pelicula-titulo');
-    const token = localStorage.getItem('token'); // Obtenemos el token una sola vez
-    
-    // (Opcional: podrías hacer un fetch a /api/peliculas/{id}
-    // para obtener el título y ponerlo en el h2)
-    peliculaTitulo.textContent = `Funciones para la Película (ID: ${idPelicula})`;
-
-    async function cargarInfoPelicula() {
-        try {
-            // Llamamos al endpoint de PeliculasController
-            const response = await fetch(`/api/peliculas/${idPelicula}`, {
-                headers: { 'Authorization': `Bearer ${token}` }
-            });
-
-            if (response.ok) {
-                const pelicula = await response.json();
-                // ¡Actualizamos el H2 con el título real!
-                peliculaTitulo.textContent = `Funciones para: ${pelicula.titulo}`;
-            } else {
-                // Si falla, dejamos el ID como estaba
-                peliculaTitulo.textContent = `Funciones para la Película (ID: ${idPelicula})`;
-            }
-        } catch (error) {
-            console.error('Error al cargar info de la película:', error);
-        }
-    }
-    // 2. Cargar las funciones
-    async function cargarFunciones() {
-        const token = localStorage.getItem('token');
-
-        try {
-            // 3. ¡Llamamos a nuestro NUEVO endpoint!
-            const response = await fetch(`/api/funciones/pelicula/${idPelicula}`, {
-                method: 'GET',
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                }
-            });
-
-            if (response.ok) {
-                const funciones = await response.json();
-                renderFunciones(funciones);
-            } else if (response.status === 401) {
-                alert('Tu sesión ha expirado.');
-                localStorage.removeItem('token'); // Limpiamos el token malo
-                window.location.href = 'login.html';
-            } else {
-                throw new Error(`Error: ${response.statusText}`);
-            }
-
-        } catch (error) {
-            console.error('Error al cargar funciones:', error);
-            funcionesList.innerHTML = '<p>No se pudieron cargar las funciones.</p>';
-        }
+    if (!response.ok) {
+      throw new Error(`Error HTTP ${response.status}`);
     }
 
-    // 4. "Dibujar" las funciones en el HTML
-    function renderFunciones(funciones) {
-        if (funciones.length === 0) {
-            funcionesList.innerHTML = '<p>No hay funciones programadas para esta película.</p>';
-            return;
-        }
-        
-        let html = '<ul>';
-        funciones.forEach(funcion => {
-            const nombreSala = funcion.idSalaNavigation?.nombre || 'Sala no disponible';
-            const horario = funcion.idHorarioNavigation?.horario || 'Horario no disponible';
-            // ¡Esta data viene de la BBDD!
-            // (Necesitás ajustar las propiedades a las de tu entidad 'Funcion')
-            html += `
-                <li>
-                    <strong>Fecha:</strong> ${new Date(funcion.fecha).toLocaleDateString()}
-                    <strong>Sala:</strong> ${nombreSala} 
-                    <strong>Horario:</strong> ${horario}
-                    <br>
-                    <a href="butacas.html?idFuncion=${funcion.idFuncion}">Seleccionar Butacas</a>
-                </li>
-            `;
-        });
-        html += '</ul>';
-        funcionesList.innerHTML = html;
+    // --- Procesamos las funciones ---
+    const funciones = await response.json();
+
+    if (!funciones || funciones.length === 0) {
+      lista.innerHTML = `<p class="msg-vacio">No hay funciones disponibles para esta película.</p>`;
+      return;
     }
 
-    // 5. Iniciar la carga
-    cargarFunciones();
-    cargarInfoPelicula();
+    // --- Render dinámico ---
+    lista.innerHTML = funciones.map(f => `
+      <div class="card-funcion">
+        <h3>🎬 ${f.nombreSala}</h3>
+        <p><strong>Fecha:</strong> ${f.fecha}</p>
+        <p><strong>Horario:</strong> ${f.horario}</p>
+      </div>
+    `).join("");
+
+  } catch (error) {
+    console.error("Error al cargar funciones:", error);
+    lista.innerHTML = `<p class="msg-error">Error al cargar las funciones. Intente más tarde.</p>`;
+  }
 });
+

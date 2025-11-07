@@ -1,4 +1,5 @@
 // Esperamos a que todo el HTML esté cargado
+// Esperamos a que todo el HTML esté cargado
 document.addEventListener("DOMContentLoaded", function() {
 
     // 1. Obtenemos el formulario
@@ -18,48 +19,37 @@ document.addEventListener("DOMContentLoaded", function() {
         const nroDoc = document.getElementById("nroDoc").value;
         const password = document.getElementById("password").value;
 
-        // 4. Creamos el objeto (el "body") para enviar a la API
-        // ¡Debe ser idéntico al JSON que probamos en Swagger!
+        // 4. Body idéntico al JSON de Swagger
         const loginData = {
             nroDoc: nroDoc,
             password: password
         };
-// --- ¡AGREGÁ ESTA LÍNEA! ---
-console.log('Datos que se están enviando a la API:', loginData);
-// --- FIN ---
-        // 5. ¡Usamos fetch para llamar a nuestra API!
+
+        console.log('Datos que se están enviando a la API:', loginData);
+
         try {
             const response = await fetch('/api/auth/login', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(loginData) // Convertimos el objeto a un string JSON
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(loginData)
             });
 
-            // 6. Analizamos la respuesta de la API
             if (response.ok) {
-                // ¡Éxito! La API devolvió 200 OK
-                const data = await response.json(); // Leemos el JSON de respuesta
+                const data = await response.json();
 
-                // --- ¡¡CRÍTICO!! Guardamos el token en el navegador ---
-                // localStorage es un "mini-almacén" del navegador.
+                // Guardamos token e info mínima
                 localStorage.setItem('token', data.token);
+                localStorage.setItem('usuarioNombre', data.nombreCompleto || 'Admin');
 
-                // (Opcional: guardar info del usuario)
-                localStorage.setItem('usuarioNombre', data.nombreCompleto);
-
-                // Redirigimos al usuario al menú principal
-                window.location.href = 'index.html'; 
+                // Redirigimos al home/cartelera
+                window.location.href = 'index.html';
 
             } else {
-                // ¡Error! La API devolvió 401 (Unauthorized) u otro error
-                const errorData = await response.text(); // Leemos el mensaje de error (ej: "Usuario o contraseña incorrectos")
-                errorMessage.textContent = errorData;
+                const errorData = await response.text();
+                errorMessage.textContent = errorData || 'Usuario o contraseña incorrectos.';
             }
 
         } catch (error) {
-            // Error de red (ej: la API no está corriendo)
             console.error('Error de red:', error);
             errorMessage.textContent = 'Error de conexión con el servidor. Intente más tarde.';
         }
