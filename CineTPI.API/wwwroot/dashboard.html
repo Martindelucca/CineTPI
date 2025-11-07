@@ -1,78 +1,295 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <title>Dashboard - Cine TPI</title>
-    <script src="js/auth.js"></script> 
-    <style>
-        /* (Estilos de tabla, como en soporte-peliculas.html) */
-    </style>
-</head>
-<body>
-    <header>
-        <a href="index.html">← Volver al Menú</a>
-        <h1>Dashboard de Reportes</h1>
-    </header>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard - CineTPI</title>
 
-    <main>
+  <!-- Bootstrap + Icons + Charts -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <script src="js/auth.js"></script>
+
+ <style>
+  body {
+    background-color: #121212;
+    color: #f5f5f5;
+    font-family: 'Segoe UI', sans-serif;
+  }
+
+  .sidebar {
+    width: 240px;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #1a1a1d;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    padding: 20px;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.4);
+  }
+
+  .sidebar h4 {
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    color: #ffcc00;
+  }
+
+  .sidebar a {
+    color: #ccc;
+    text-decoration: none;
+    padding: 10px 0;
+    width: 100%;
+    transition: 0.2s;
+  }
+
+  .sidebar a:hover {
+    color: #ffcc00;
+    background-color: #252525;
+    border-radius: 5px;
+    padding-left: 10px;
+  }
+
+  .content {
+    margin-left: 260px;
+    padding: 20px;
+  }
+
+  .navbar {
+    background-color: #1f1f1f !important;
+    color: #ffcc00 !important;
+  }
+
+  .navbar-brand {
+    color: #ffcc00 !important;
+    font-weight: 600;
+  }
+
+  .btn-dark {
+    background-color: #ffcc00;
+    color: #121212;
+    font-weight: 600;
+    border: none;
+  }
+
+  .btn-dark:hover {
+    background-color: #e6b800;
+  }
+
+  .card, .table {
+    background-color: #1e1e1e;
+    color: #f5f5f5;
+    border: 1px solid #333;
+  }
+
+  .table thead {
+    background-color: #333;
+    color: #ffcc00;
+  }
+
+  .p-3.bg-light {
+    background-color: #222 !important;
+  }
+
+  a, h3, label {
+    color: #ffcc00;
+  }
+
+  canvas {
+    background-color: #1e1e1e;
+    border-radius: 10px;
+    padding: 10px;
+  }
+</style>
+
+</head>
+
+<body>
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <h4><i class="fa-solid fa-clapperboard me-2"></i> CineTPI</h4>
+    <a href="#r1"><i class="fa-solid fa-ticket me-2"></i> Reservas</a>
+    <a href="#r2"><i class="fa-solid fa-coins me-2"></i> Recaudación</a>
+    <a href="#r3"><i class="fa-solid fa-users me-2"></i> Clientes</a>
+    <a href="#r4"><i class="fa-solid fa-film me-2"></i> Funciones</a>
+    <a href="#r5"><i class="fa-solid fa-id-card me-2"></i> Perfil Cliente</a>
+  </div>
+
+  <!-- CONTENIDO -->
+  <div class="content">
+    <nav class="navbar navbar-expand-lg bg-light shadow-sm rounded mb-4 px-3">
+      <div class="container-fluid">
+        <span class="navbar-brand fw-semibold">Panel de Administración</span>
+        <button class="btn btn-outline-danger btn-sm" id="logout-btn">
+          <i class="fa-solid fa-right-from-bracket"></i> Cerrar sesión
+        </button>
+      </div>
+    </nav>
+
+    <!-- DASHBOARDS -->
+    <div id="dashboards" class="container-fluid">
+
+      <!-- === REPORTE 1: RESERVAS POR ESTADO === -->
+      <section id="r1" class="mb-5">
+       
+
         <h3>Reservas por Estado (Este Mes)</h3>
-        <table id="tabla-reporte-reservas">
-            <thead>
-                <tr>
-                    <th>Estado</th>
-                    <th>Cantidad</th>
-                    <th>Total Recaudado</th>
-                </tr>
+         <canvas id="chart-reservas" height="120" class="mb-3"></canvas>
+        <div class="table-responsive">
+          <table id="tabla-reporte-reservas" class="table table-striped table-bordered">
+            <thead class="table-dark">
+              <tr>
+                <th>Estado</th>
+                <th>Cantidad</th>
+                <th>Total Recaudado</th>
+              </tr>
             </thead>
             <tbody id="tbody-reporte-reservas">
-                <tr><td colspan="3">Cargando...</td></tr>
+              <tr><td colspan="3">Cargando...</td></tr>
             </tbody>
-        </table>
-        <hr>
-<h3>Recaudación por Película</h3>
-<form id="form-recaudacion">
-    <label for="fecha-desde">Fecha Desde:</label>
-    <input type="date" id="fecha-desde" required>
-    
-    <label for="fecha-hasta">Fecha Hasta:</label>
-    <input type="date" id="fecha-hasta" required>
-    
-    <button type="submit">Consultar</button>
-</form>
+          </table>
+        </div>
+      </section>
 
-<table id="tabla-reporte-recaudacion">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Película</th>
-            <th>Entradas Vendidas</th>
-            <th>Total Recaudado</th>
-        </tr>
-    </thead>
-    <tbody id="tbody-reporte-recaudacion">
-        <tr><td colspan="4">Ingrese un rango de fechas...</td></tr>
-    </tbody>
-</table>
+      <!-- === REPORTE 2: RECAUDACIÓN POR PELÍCULA === -->
+      <section id="r2" class="mb-5">
+        <h3>Recaudación por Película</h3>
+        <canvas id="chart-recaudacion" height="150" class="mb-3"></canvas>
 
-<hr>
-<h3>Top Clientes (Mejores Clientes)</h3>
-<table id="tabla-reporte-clientes">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Nombre</th>
-            <th>Películas Vistas</th>
-            <th>Total Entradas</th>
-            <th>Total Gastado</th>
-        </tr>
-    </thead>
-    <tbody id="tbody-reporte-clientes">
-        <tr><td colspan="5">Cargando...</td></tr>
-    </tbody>
-</table>
-        
-        </main>
+        <form id="form-recaudacion" class="row g-3 mb-3">
+          <div class="col-md-4">
+            <label for="fecha-desde" class="form-label">Fecha Desde:</label>
+            <input type="date" id="fecha-desde" class="form-control" required>
+          </div>
+          <div class="col-md-4">
+            <label for="fecha-hasta" class="form-label">Fecha Hasta:</label>
+            <input type="date" id="fecha-hasta" class="form-control" required>
+          </div>
+          <div class="col-md-4 d-flex align-items-end">
+            <button type="submit" class="btn btn-dark w-100">Consultar</button>
+          </div>
+        </form>
+        <div class="table-responsive">
+          <table id="tabla-reporte-recaudacion" class="table table-striped table-bordered">
+            <thead class="table-dark">
+              <tr>
+                <th>ID</th>
+                <th>Película</th>
+                <th>Entradas Vendidas</th>
+                <th>Total Recaudado</th>
+              </tr>
+            </thead>
+            <tbody id="tbody-reporte-recaudacion">
+              <tr><td colspan="4">Ingrese un rango de fechas...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
 
-    <script src="js/dashboard.js"></script>
+      <!-- === REPORTE 3: TOP CLIENTES === -->
+      <section id="r3" class="mb-5">
+        <h3>Top Clientes (Mejores Clientes)</h3>
+        <canvas id="chart-clientes" height="180" class="mb-3"></canvas>
+
+        <div class="table-responsive">
+          <table id="tabla-reporte-clientes" class="table table-striped table-bordered">
+            <thead class="table-dark">
+              <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Películas Vistas</th>
+                <th>Total Entradas</th>
+                <th>Total Gastado</th>
+              </tr>
+            </thead>
+            <tbody id="tbody-reporte-clientes">
+              <tr><td colspan="5">Cargando...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- === REPORTE 4: FUNCIONES POR GÉNERO === -->
+      <section id="r4" class="mb-5">
+        <h3>Funciones por Género</h3>
+        <form id="form-funciones-genero" class="row g-3 mb-3">
+          <div class="col-md-4">
+            <label for="genero" class="form-label">Género:</label>
+            <input type="text" id="genero" class="form-control" placeholder="Ej: Acción, Terror, Comedia">
+          </div>
+          <div class="col-md-3">
+            <label for="fecha-desde-gen" class="form-label">Desde:</label>
+            <input type="date" id="fecha-desde-gen" class="form-control">
+          </div>
+          <div class="col-md-3">
+            <label for="fecha-hasta-gen" class="form-label">Hasta:</label>
+            <input type="date" id="fecha-hasta-gen" class="form-control">
+          </div>
+          <div class="col-md-2 d-flex align-items-end">
+            <button type="submit" class="btn btn-dark w-100">Buscar</button>
+          </div>
+        </form>
+        <div class="table-responsive">
+          <table class="table table-striped table-bordered">
+            <thead class="table-dark">
+              <tr>
+                <th>Título</th>
+                <th>Género</th>
+                <th>Sala</th>
+                <th>Tipo Sala</th>
+                <th>Formato</th>
+                <th>Fecha</th>
+                <th>Horario</th>
+                <th>Director</th>
+              </tr>
+            </thead>
+            <tbody id="tbody-funciones-genero"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- === REPORTE 5: PERFIL DEL CLIENTE === -->
+      <section id="r5">
+        <h3>Perfil del Cliente</h3>
+        <form id="form-perfil-cliente" class="row g-3 mb-3">
+          <div class="col-md-4">
+            <label for="pc-cliente-id" class="form-label">ID Cliente:</label>
+            <input type="number" id="pc-cliente-id" class="form-control" placeholder="Ej: 1001" required>
+          </div>
+          <div class="col-md-2 d-flex align-items-end">
+            <button type="submit" class="btn btn-dark w-100">Buscar</button>
+          </div>
+        </form>
+
+        <div id="pc-info" class="row g-3 mb-3" style="display:none;">
+          <div class="col-md-3"><div class="p-3 border rounded bg-light"><div class="text-muted">Cliente</div><div id="pc-nombre" class="fw-bold fs-5"></div></div></div>
+          <div class="col-md-3"><div class="p-3 border rounded bg-light"><div class="text-muted">Fecha registro</div><div id="pc-fecha-registro" class="fw-bold"></div></div></div>
+          <div class="col-md-2"><div class="p-3 border rounded bg-light"><div class="text-muted">Gasto entradas</div><div id="pc-gasto-entradas" class="fw-bold"></div></div></div>
+          <div class="col-md-2"><div class="p-3 border rounded bg-light"><div class="text-muted">Gasto productos</div><div id="pc-gasto-productos" class="fw-bold"></div></div></div>
+          <div class="col-md-2"><div class="p-3 border rounded bg-light"><div class="text-muted">Género favorito</div><div id="pc-genero-favorito" class="fw-bold"></div></div></div>
+        </div>
+
+        <div class="table-responsive">
+          <table class="table table-striped table-bordered">
+            <thead class="table-dark">
+              <tr>
+                <th>Película</th>
+                <th>Estreno</th>
+                <th>Fecha función</th>
+              </tr>
+            </thead>
+            <tbody id="pc-tbody-historial"></tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <script src="js/dashboard.js"></script>
 </body>
 </html>

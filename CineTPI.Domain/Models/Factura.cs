@@ -9,9 +9,6 @@ namespace CineTPI.Domain.Models;
 
 public partial class Factura
 {
-    [Key]
-    [Column("id_pelicula")]
-    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int NroFactura { get; set; }
 
     public int? IdCondicionIva { get; set; }

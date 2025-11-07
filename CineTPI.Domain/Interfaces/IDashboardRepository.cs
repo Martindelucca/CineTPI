@@ -12,7 +12,11 @@ namespace CineTPI.Domain.Interfaces
     {
         Task<IEnumerable<ReporteReservasDto>> GetReporteReservasPorEstado();
         Task<IEnumerable<ReporteReacaudacionDto>> GetReporteRecaudacion(DateTime fechaDesde, DateTime fechaHasta);
-
         Task<IEnumerable<ReporteClientesFrecuentesDto>> GetReporteClientesFrecuentes();
+
+        Task<IEnumerable<FuncionesPorGeneroDto>> GetFuncionesPorGeneroAsync(string genero, DateTime fechaDesde, DateTime fechaHasta);
+         
+        Task<IEnumerable<PerfilClienteDto>> GetPerfilClienteAsync(int clienteId);
     }
+       
 }
