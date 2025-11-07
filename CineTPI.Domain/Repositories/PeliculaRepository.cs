@@ -33,7 +33,10 @@ namespace CineTPI.Domain.Repositories
         public async Task AddAsync(Pelicula entity)
         {
             await _context.Peliculas.AddAsync(entity);
-            await _context.SaveChangesAsync(); // <-- Guarda los cambios en la BBDD
+            Console.WriteLine("Guardando película en la base de datos...");
+            await _context.SaveChangesAsync();
+            Console.WriteLine("Película guardada correctamente.");
+
         }
 
         public async Task UpdateAsync(Pelicula entity)

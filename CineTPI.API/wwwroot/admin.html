@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Panel de Administración - CineTPI</title>
+  <link rel="stylesheet" href="css/admin.css" />
+</head>
+
+<body>
+  <header class="admin-header">
+    <h1>🎬 Panel de Administración - CineTPI</h1>
+    <div class="user-info">
+      <span id="admin-nombre">Administrador</span>
+      <button id="btn-logout">Cerrar sesión</button>
+    </div>
+  </header>
+
+  <main class="admin-container">
+    <section class="admin-menu">
+      <div class="card" onclick="window.location.href='dashboard.html'">
+        <h2>📊 Dashboard</h2>
+        <p>Visualiza las métricas y reportes del cine.</p>
+      </div>
+
+      <div class="card" onclick="window.location.href='soporte-peliculas.html'">
+        <h2>🎬 Gestión de Películas</h2>
+        <p>Agrega, edita o elimina películas disponibles.</p>
+      </div>
+
+      <div class="card" onclick="window.location.href='index.html'">
+        <h2>🎟️ Cartelera</h2>
+        <p>Ver la vista pública de las películas en cartelera.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="admin-footer">
+    <p>© 2025 CineTPI | UTN Córdoba</p>
+  </footer>
+
+  <script src="js/admin.js"></script>
+</body>
+</html>

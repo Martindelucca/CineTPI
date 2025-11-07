@@ -1,86 +1,50 @@
-// Esperamos a que todo el HTML (index.html) esté cargado
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', async () => {
+  const token = localStorage.getItem('token');
+  const btnLogin = document.getElementById('btn-login');
+  const btnAdmin = document.getElementById('btn-admin');
+  const contenedor = document.getElementById('cartelera-container');
 
-    // --- 1. Saludar al Usuario y Configurar Logout ---
-    const welcomeMessage = document.getElementById('welcome-message');
-    const logoutButton = document.getElementById('logout-button');
-    const peliculasList = document.getElementById('peliculas-list');
-    
-    // Obtenemos el nombre guardado en el login
-    const nombreUsuario = localStorage.getItem('usuarioNombre');
-    if (nombreUsuario) {
-        welcomeMessage.textContent = `Bienvenido, ${nombreUsuario}`;
-    }
+  if (token) {
+    btnLogin.style.display = 'none';
+    btnAdmin.style.display = 'inline-block';
+  }
 
-    // Configurar el botón de Cerrar Sesión
-    logoutButton.addEventListener('click', function() {
-        // Borramos los datos de sesión del navegador
-        localStorage.removeItem('token');
-        localStorage.removeItem('usuarioNombre');
-        
-        // Lo mandamos al login
-        window.location.href = 'login.html';
+  try {
+    const resp = await fetch('/api/peliculas/cartelera', {
+      headers: token ? { 'Authorization': `Bearer ${token}` } : {}
     });
 
-    // --- 2. Cargar las Películas (Llamada 'fetch' AUTENTICADA) ---
-    async function cargarPeliculasEnCartelera() {
-        
-        // ¡¡ESTA ES LA PARTE CLAVE DEL TPI!!
-        
-        // a. Obtenemos el token que guardamos en el login
-        const token = localStorage.getItem('token');
+    if (!resp.ok) throw new Error('Error al cargar cartelera');
 
-        try {
-            // b. Hacemos el 'fetch' al endpoint protegido
-            const response = await fetch('/api/peliculas/cartelera', {
-                method: 'GET',
-                headers: {
-                    // c. ¡Añadimos el token a la cabecera 'Authorization'!
-                    // El formato es "Bearer" (espacio) y luego el token.
-                    'Authorization': `Bearer ${token}`
-                }
-            });
+    const peliculas = await resp.json();
 
-            // d. Verificamos la respuesta
-            if (response.ok) {
-                // Éxito (200 OK)
-                const peliculas = await response.json();
-                renderPeliculas(peliculas);
-            } else if (response.status === 401) {
-                // Error 401 (Token inválido o expirado)
-                alert('Tu sesión ha expirado. Por favor, volvé a iniciar sesión.');
-                logoutButton.click(); // Forzamos el logout
-            } else {
-                // Otro error (404, 500...)
-                throw new Error(`Error del servidor: ${response.status}`);
-            }
-
-        } catch (error) {
-            console.error('Error al cargar películas:', error);
-            peliculasList.innerHTML = '<p>No se pudieron cargar las películas. Intente más tarde.</p>';
-        }
+    if (peliculas.length === 0) {
+      contenedor.innerHTML = '<p>No hay películas en cartelera actualmente.</p>';
+      return;
     }
 
-    // --- 3. Función para "dibujar" las películas en el HTML ---
-    function renderPeliculas(peliculas) {
-        if (peliculas.length === 0) {
-            peliculasList.innerHTML = '<p>No hay películas en cartelera en este momento.</p>';
-            return;
-        }
+    contenedor.innerHTML = '';
+    peliculas.forEach(p => {
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.innerHTML = `
+        <h3>${p.titulo}</h3>
+        <p>${p.descripcion ?? 'Sin descripción disponible'}</p>
+        <p><strong>Estreno:</strong> ${p.fechaLanzamiento?.split('T')[0] ?? 'N/D'}</p>
+        <button class="btn-funciones" data-id="${p.idPelicula}">Ver funciones</button>
+      `;
+      contenedor.appendChild(card);
+    });
 
-        let html = '<ul>';
-        peliculas.forEach(pelicula => {
-            html += `
-                <li>
-                    <h3>${pelicula.titulo}</h3>
-                    <a href="funciones.html?id=${pelicula.idPelicula}">Ver Funciones</a>
-                </li>
-            `;
-        });
-        html += '</ul>';
-        peliculasList.innerHTML = html;
-    }
+    document.querySelectorAll('.btn-funciones').forEach(btn => {
+      btn.addEventListener('click', e => {
+        const id = e.target.dataset.id;
+        window.location.href = `funciones.html?id=${id}`;
+      });
+    });
 
-    // --- 4. Iniciar la carga ---
-    cargarPeliculasEnCartelera();
+  } catch (err) {
+    console.error(err);
+    contenedor.innerHTML = '<p>Error al cargar cartelera.</p>';
+  }
 });

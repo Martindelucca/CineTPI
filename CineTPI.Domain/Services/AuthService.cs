@@ -49,6 +49,8 @@ namespace CineTPI.Domain.Services
 
             // 3. ¡Usuario válido! Generar el Token JWT
             var token = GenerateJwtToken(cliente);
+            Console.WriteLine($"🧾 Rol del usuario autenticado: {cliente.NroDoc}");
+
 
             // 4. Devolver el DTO de respuesta
             return new LoginResponseDto

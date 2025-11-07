@@ -1,173 +1,143 @@
-document.addEventListener('DOMContentLoaded', function () {
+// === CONFIGURACIÓN GLOBAL ===
+const API_URL = "/api/peliculas";
+const token = localStorage.getItem("token");
 
-    // --- 1. CONFIGURACIÓN ---
-    const token = localStorage.getItem('token');
-    const tbody = document.getElementById('tbody-peliculas');
-    const form = document.getElementById('form-pelicula');
-    const btnGuardar = document.getElementById('btn-guardar');
-    const btnCancelar = document.getElementById('btn-cancelar');
+// === CARGAR PELÍCULAS ===
+async function cargarPeliculas() {
+    const tbody = document.getElementById("tbody-peliculas");
+    tbody.innerHTML = "<tr><td colspan='6'>Cargando...</td></tr>";
 
-    // Inputs del formulario
-    const inputId = document.getElementById('pelicula-id');
-    const inputTitulo = document.getElementById('titulo');
-    const inputDescripcion = document.getElementById('descripcion');
-    const inputFecha = document.getElementById('fecha-lanzamiento');
-
-    const API_URL = '/api/peliculas';
-
-    // --- 2. FUNCIÓN DE CARGA (GET Global) ---
-    async function cargarPeliculas() {
-        tbody.innerHTML = '<tr><td colspan="3">Cargando...</td></tr>';
-        try {
-            const response = await fetch(API_URL, {
-                headers: { 'Authorization': `Bearer ${token}` }
-            });
-            if (!response.ok) {
-                if (response.status === 401) window.location.href = 'login.html';
-                throw new Error('Error al cargar películas.');
-            }
-            const peliculas = await response.json();
-            renderTabla(peliculas);
-        } catch (error) {
-            console.error(error);
-            tbody.innerHTML = '<tr><td colspan="3">Error al cargar.</td></tr>';
-        }
-    }
-
-    // --- 3. FUNCIÓN DE RENDERIZADO ---
-    function renderTabla(peliculas) {
-        tbody.innerHTML = '';
-        peliculas.forEach(pelicula => {
-            const tr = document.createElement('tr');
-            tr.innerHTML = `
-                <td>${pelicula.idPelicula}</td>
-                <td>${pelicula.titulo}</td>
-                <td>
-                    <button class="btn-editar" data-id="${pelicula.idPelicula}">Editar</button>
-                    <button class="btn-borrar" data-id="${pelicula.idPelicula}">Borrar</button>
-                </td>
-            `;
-            tbody.appendChild(tr);
+    try {
+        const response = await fetch(API_URL, {
+            headers: { "Authorization": `Bearer ${token}` }
         });
-    }
-    delete pelicula.idPelicula;
 
-if (pelicula.idPelicula === 0 || pelicula.idPelicula === "0") {
-    delete pelicula.idPelicula; // 🔥 Esto elimina el campo del JSON antes de enviarlo
+        if (!response.ok) throw new Error("Error al cargar películas.");
+
+        const data = await response.json();
+        renderPeliculas(data);
+    } catch (err) {
+        console.error("Error al cargar:", err);
+        tbody.innerHTML = "<tr><td colspan='6'>Error al cargar películas.</td></tr>";
+    }
 }
 
-    // --- 4. LÓGICA DEL FORMULARIO (POST y PUT) ---
-    form.addEventListener('submit', async function (e) {
-        e.preventDefault();
+// === RENDERIZAR PELÍCULAS ===
+function renderPeliculas(lista) {
+    const tbody = document.getElementById("tbody-peliculas");
+    tbody.innerHTML = "";
 
-        const id = parseInt(inputId.value); // 0 si es nuevo
-        const esNuevo = id === 0;
-
-        let peliculaDto = {};
-        let method = '';
-        let url = '';
-
-        if (esNuevo) {
-            // --- ALTA (POST) ---
-            method = 'POST';
-            url = API_URL;
-            // ✅ CAMBIO: No enviamos el idPelicula en el JSON
-            peliculaDto = {
-                titulo: inputTitulo.value,
-                descripcion: inputDescripcion.value,
-                fechaLanzamiento: inputFecha.value
-            };
-        } else {
-            // --- MODIFICACIÓN (PUT) ---
-            method = 'PUT';
-            url = `${API_URL}/${id}`;
-            peliculaDto = {
-                idPelicula: id,
-                titulo: inputTitulo.value,
-                descripcion: inputDescripcion.value,
-                fechaLanzamiento: inputFecha.value
-            };
-        }
-
-        try {
-            const response = await fetch(url, {
-                method: method,
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(peliculaDto)
-            });
-
-            if (response.ok) {
-                alert(`Película ${esNuevo ? 'creada' : 'actualizada'} con éxito.`);
-                resetFormulario();
-                cargarPeliculas(); // Recargamos la tabla
-            } else {
-                const error = await response.text(); // ✅ CAMBIO: texto directo, no JSON
-                alert(`Error: ${error}`);
-            }
-        } catch (error) {
-            console.error('Error al guardar:', error);
-            alert('Error de conexión con el servidor.');
-        }
-    });
-
-    // --- 5. LÓGICA DE BOTONES (EDITAR y BORRAR) ---
-    tbody.addEventListener('click', async function (e) {
-
-        // Botón BORRAR (DELETE)
-        if (e.target.classList.contains('btn-borrar')) {
-            const id = e.target.dataset.id;
-            if (confirm(`¿Está seguro que desea borrar la película ID ${id}?`)) {
-                try {
-                    const response = await fetch(`${API_URL}/${id}`, {
-                        method: 'DELETE',
-                        headers: { 'Authorization': `Bearer ${token}` }
-                    });
-                    if (response.ok) {
-                        alert('Película borrada.');
-                        cargarPeliculas(); // Recargamos la tabla
-                    } else {
-                        alert('Error al borrar.');
-                    }
-                } catch (error) {
-                    console.error('Error al borrar:', error);
-                }
-            }
-        }
-
-        // Botón EDITAR (Prepara el formulario)
-        if (e.target.classList.contains('btn-editar')) {
-            const id = e.target.dataset.id;
-            const response = await fetch(`${API_URL}/${id}`, {
-                headers: { 'Authorization': `Bearer ${token}` }
-            });
-            if (!response.ok) { alert('No se pudo cargar la película.'); return; }
-
-            const pelicula = await response.json();
-
-            // Llenamos el formulario
-            inputId.value = pelicula.idPelicula;
-            inputTitulo.value = pelicula.titulo;
-            inputDescripcion.value = pelicula.descripcion;
-            inputFecha.value = pelicula.fechaLanzamiento.split('T')[0]; // Fecha ISO → formato input
-
-            btnGuardar.textContent = 'Actualizar';
-            btnCancelar.style.display = 'inline-block';
-        }
-    });
-
-    // Botón Cancelar (Limpia el formulario)
-    btnCancelar.addEventListener('click', resetFormulario);
-
-    function resetFormulario() {
-        form.reset();
-        inputId.value = '0';
-        btnGuardar.textContent = 'Guardar';
-        btnCancelar.style.display = 'none';
+    if (!lista || lista.length === 0) {
+        tbody.innerHTML = "<tr><td colspan='5'>No hay películas registradas.</td></tr>";
+        return;
     }
 
-    // --- INICIAR ---
+    lista.forEach(p => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+            <td>${p.idPelicula}</td>
+            <td>${p.titulo}</td>
+            <td>${p.descripcion || "Sin descripción"}</td>
+            <td>${p.fechaLanzamiento ? p.fechaLanzamiento.split("T")[0] : "—"}</td>
+            <td>
+                <button class="btn-action edit" onclick="editarPelicula(${p.idPelicula})">✏️</button>
+                <button class="btn-action delete" onclick="eliminarPelicula(${p.idPelicula})">🗑️</button>
+            </td>
+        `;
+        tbody.appendChild(tr);
+    });
+}
+
+
+// === GUARDAR PELÍCULA ===
+async function guardarPelicula() {
+    const id = document.getElementById("pelicula-id").value;
+    const titulo = document.getElementById("titulo").value.trim();
+    const descripcion = document.getElementById("descripcion").value.trim();
+    const fecha = document.getElementById("fecha-lanzamiento").value;
+
+    if (!titulo || !fecha) {
+        alert("Por favor, completá título y fecha de estreno.");
+        return;
+    }
+
+    const esNuevo = id === "" || id === "0";
+    const method = esNuevo ? "POST" : "PUT";
+    const url = esNuevo ? API_URL : `${API_URL}/${id}`;
+    const body = esNuevo
+        ? { Titulo: titulo, Descripcion: descripcion, FechaLanzamiento: fecha }
+        : { IdPelicula: parseInt(id), Titulo: titulo, Descripcion: descripcion, FechaLanzamiento: fecha };
+
+    try {
+        const response = await fetch(url, {
+            method,
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+            },
+            body: JSON.stringify(body)
+        });
+
+        if (!response.ok) throw new Error(await response.text());
+
+        await cargarPeliculas();
+        limpiarFormulario();
+        alert(esNuevo ? "Película agregada correctamente." : "Película actualizada correctamente.");
+    } catch (err) {
+        console.error("Error al guardar:", err);
+        alert("Error al guardar la película.");
+    }
+}
+
+// === EDITAR ===
+async function editarPelicula(id) {
+    try {
+        const response = await fetch(`${API_URL}/${id}`, {
+            headers: { "Authorization": `Bearer ${token}` }
+        });
+
+        if (!response.ok) throw new Error("Error al obtener película.");
+
+        const data = await response.json();
+        document.getElementById("pelicula-id").value = data.idPelicula;
+        document.getElementById("titulo").value = data.titulo;
+        document.getElementById("descripcion").value = data.descripcion ?? "";
+        document.getElementById("fecha-lanzamiento").value = data.fechaLanzamiento.split("T")[0];
+    } catch (err) {
+        console.error("Error al editar:", err);
+        alert("No se pudo cargar la película para editar.");
+    }
+}
+
+// === ELIMINAR ===
+async function eliminarPelicula(id) {
+    if (!confirm("¿Seguro que querés eliminar esta película?")) return;
+
+    try {
+        const response = await fetch(`${API_URL}/${id}`, {
+            method: "DELETE",
+            headers: { "Authorization": `Bearer ${token}` }
+        });
+
+        if (!response.ok) throw new Error(await response.text());
+
+        await cargarPeliculas();
+        alert("Película eliminada correctamente.");
+    } catch (err) {
+        console.error("Error al eliminar:", err);
+        alert("Error al eliminar película.");
+    }
+}
+
+// === LIMPIAR ===
+function limpiarFormulario() {
+    document.getElementById("form-pelicula").reset();
+    document.getElementById("pelicula-id").value = "";
+}
+
+// === EVENTOS ===
+document.addEventListener("DOMContentLoaded", () => {
+    document.getElementById("btn-guardar").addEventListener("click", guardarPelicula);
+    document.getElementById("btn-cancelar").addEventListener("click", limpiarFormulario);
     cargarPeliculas();
 });

@@ -32,10 +32,13 @@ namespace CineTPI.API.Controllers
 
 
 
-            var peliculasDto = peliculas.Select(p => new PeliculaSimpleDto
+            var peliculasDto = peliculas.Select(p => new PeliculaListDto
             {
                 IdPelicula = p.IdPelicula,
-                Titulo = p.Titulo
+                Titulo = p.Titulo,
+                Descripcion = p.Descripcion,
+                FechaLanzamiento = p.FechaLanzamiento
+                
             });
 
 
