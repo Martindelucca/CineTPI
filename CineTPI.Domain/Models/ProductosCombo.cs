@@ -10,7 +10,7 @@ namespace CineTPI.Domain.Models;
 public partial class ProductosCombo
 {
     [Key]
-    [Column("id_pelicula")]
+    [Column("id_producto_combo")]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int IdProductoCombo { get; set; }
 

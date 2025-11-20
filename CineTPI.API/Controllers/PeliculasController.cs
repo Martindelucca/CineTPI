@@ -1,18 +1,16 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 using CineTPI.Domain.DTOs;
 using CineTPI.Domain.Models;
 using CineTPI.Domain.Interfaces;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 
 namespace CineTPI.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    [Authorize]   // toda la API requiere estar logueado
     public class PeliculasController : ControllerBase
     {
         private readonly IPeliculaRepository _peliculaRepository;
@@ -22,132 +20,111 @@ namespace CineTPI.API.Controllers
             _peliculaRepository = peliculaRepository;
         }
 
-
-
-        // Obtiene una lista simple de TODAS las películas
+        // GET api/peliculas  - lista completa para ABMC
         [HttpGet]
         public async Task<IActionResult> GetPeliculas()
         {
             var peliculas = await _peliculaRepository.GetAllAsync();
-
-
 
             var peliculasDto = peliculas.Select(p => new PeliculaListDto
             {
                 IdPelicula = p.IdPelicula,
                 Titulo = p.Titulo,
                 Descripcion = p.Descripcion,
-                FechaLanzamiento = p.FechaLanzamiento
-                
+                FechaLanzamiento = p.FechaLanzamiento,
             });
-
 
             return Ok(peliculasDto);
         }
 
-
-        // Obtiene solo las películas que tienen funciones activas
-        [HttpGet("cartelera")] 
-        [Authorize]
+        // GET api/peliculas/cartelera - solo cartelera
+        [HttpGet("cartelera")]
         public async Task<IActionResult> GetPeliculasEnCartelera()
         {
             var peliculas = await _peliculaRepository.GetPeliculasEnCarteleraAsync();
 
-
-            var peliculasDto = peliculas.Select(p => new PeliculaSimpleDto
+            var peliculasDto = peliculas.Select(p => new PeliculaListDto
             {
                 IdPelicula = p.IdPelicula,
-                Titulo = p.Titulo
+                Titulo = p.Titulo,
+                Descripcion = p.Descripcion,
+                FechaLanzamiento = p.FechaLanzamiento,
             });
 
             return Ok(peliculasDto);
         }
 
-
-        // Obtiene UNA película por su ID
+        // GET api/peliculas/{id} - para editar
         [HttpGet("{id}")]
         public async Task<IActionResult> GetPelicula(int id)
         {
-            var pelicula = await _peliculaRepository.GetByIdAsync(id);
+            var p = await _peliculaRepository.GetByIdAsync(id);
 
-            if (pelicula == null)
-            {
-
+            if (p == null)
                 return NotFound();
-            }
 
-
-            return Ok(pelicula);
+            return Ok(new PeliculaListDto
+            {
+                IdPelicula = p.IdPelicula,
+                Titulo = p.Titulo,
+                Descripcion = p.Descripcion,
+                FechaLanzamiento = p.FechaLanzamiento,
+            });
         }
 
-
-        // Crea una nueva película
+        // POST api/peliculas - crear
         [HttpPost]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> CreatePelicula([FromBody] PeliculaCreateDTO dto)
         {
-            try
+            if (dto == null)
+                return BadRequest("Datos inválidos.");
+
+            var pelicula = new Pelicula
             {
-                if (dto == null)
-                    return BadRequest("Datos inválidos.");
+                Titulo = dto.Titulo,
+                Descripcion = dto.Descripcion,
+                FechaLanzamiento = dto.FechaLanzamiento ?? default,
+            };
 
-                // Log para depurar
-                Console.WriteLine("🎬 DTO recibido: " + System.Text.Json.JsonSerializer.Serialize(dto));
+            await _peliculaRepository.AddAsync(pelicula);
 
-                // ✅ Creamos una entidad nueva SIN IdPelicula
-                var pelicula = new Pelicula
-                {
-                    Titulo = dto.Titulo,
-                    Descripcion = dto.Descripcion,
-                    FechaLanzamiento = (DateOnly)dto.FechaLanzamiento
-                };
-
-                await _peliculaRepository.AddAsync(pelicula);
-
-                return CreatedAtAction(nameof(GetPelicula),
-                    new { id = pelicula.IdPelicula },
-                    pelicula);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("⚠️ Error al guardar película:");
-                Console.WriteLine(ex.ToString());
-                return BadRequest("No se pudo guardar la película.");
-            }
+            return CreatedAtAction(nameof(GetPelicula),
+                new { id = pelicula.IdPelicula },
+                pelicula);
         }
 
-
-        
-
+        // PUT api/peliculas/{id}
         [HttpPut("{id}")]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> UpdatePelicula(int id, [FromBody] Pelicula peliculaActualizada)
+        public async Task<IActionResult> UpdatePelicula(int id, [FromBody] PeliculaCreateDTO dto)
         {
-            if (id != peliculaActualizada.IdPelicula)
-            {
-                return BadRequest("El ID de la URL no coincide con el ID del cuerpo");
-            }
+            var pelicula = await _peliculaRepository.GetByIdAsync(id);
+            if (pelicula == null)
+                return NotFound();
 
+            pelicula.Titulo = dto.Titulo;
+            pelicula.Descripcion = dto.Descripcion;
+            pelicula.FechaLanzamiento = dto.FechaLanzamiento ?? pelicula.FechaLanzamiento;
 
-            await _peliculaRepository.UpdateAsync(peliculaActualizada);
+            await _peliculaRepository.UpdateAsync(pelicula);
 
             return NoContent();
         }
-        // Borra una película
+
+        // DELETE api/peliculas/{id}
         [HttpDelete("{id}")]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeletePelicula(int id)
         {
             var pelicula = await _peliculaRepository.GetByIdAsync(id);
             if (pelicula == null)
-            {
                 return NotFound();
-            }
 
             await _peliculaRepository.DeleteAsync(id);
 
             return NoContent();
         }
-
     }
 }
+

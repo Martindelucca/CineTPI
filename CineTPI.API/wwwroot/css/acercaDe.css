@@ -1,0 +1,177 @@
+﻿/* ===== ACERCA DE  ===== */
+
+body {
+    margin: 0;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    background: radial-gradient(circle at top, #1c1c1c 0%, #050505 80%);
+    color: #f5f5f5;
+}
+
+/* HEADER */
+
+.about-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.2rem 2.2rem;
+    background: linear-gradient(90deg, #111 0%, #1f1f1f 60%, #b60000 100%);
+    border-bottom: 1px solid #2c2c2c;
+}
+
+.about-brand {
+    font-size: 1.4rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: #f5c518; /* amarillo */
+    text-shadow: 0 0 8px rgba(245, 197, 24, 0.5);
+}
+
+    .about-brand .brand-main {
+        color: #e50914;
+    }
+
+    .about-brand .brand-sub {
+        margin-left: 2px;
+    }
+
+.about-nav a {
+    margin-left: 1rem;
+    text-decoration: none;
+    color: #f5f5f5;
+    font-weight: 500;
+    padding: 0.4rem 0.9rem;
+    border-radius: 999px;
+    border: 1px solid transparent;
+    transition: 0.2s;
+    font-size: 0.9rem;
+}
+
+    .about-nav a:hover {
+        border-color: #f5c518;
+        background-color: rgba(0, 0, 0, 0.35);
+    }
+
+/* CONTENIDO PRINCIPAL */
+
+.about-container {
+    max-width: 1100px;
+    margin: 2rem auto;
+    padding: 0 1.5rem 2.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+/* Sección proyecto */
+
+.about-project {
+    background: rgba(15, 15, 15, 0.9);
+    border-radius: 14px;
+    padding: 1.8rem 1.6rem;
+    border: 1px solid #2b2b2b;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.55);
+}
+
+    .about-project h1 {
+        margin-top: 0;
+        margin-bottom: 0.8rem;
+        font-size: 1.8rem;
+        color: #f5c518;
+    }
+
+    .about-project p {
+        margin-bottom: 0.6rem;
+        line-height: 1.5;
+        color: #e0e0e0;
+    }
+
+    .about-project ul {
+        padding-left: 1.2rem;
+        margin: 0.4rem 0 0;
+    }
+
+    .about-project li {
+        margin-bottom: 0.3rem;
+    }
+
+/* Sección equipo */
+
+.about-team h2,
+.about-tech h2 {
+    font-size: 1.4rem;
+    color: #f5c518;
+    margin-bottom: 0.8rem;
+}
+
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 1rem;
+}
+
+.team-card {
+    background: #151515;
+    border-radius: 12px;
+    padding: 1rem 1.2rem;
+    border: 1px solid #2b2b2b;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.55);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+    .team-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.7);
+    }
+
+    .team-card h3 {
+        margin-top: 0;
+        margin-bottom: 0.4rem;
+        color: #ffffff;
+    }
+
+    .team-card p {
+        margin: 0.2rem 0;
+        font-size: 0.92rem;
+        color: #dddddd;
+    }
+
+    .team-card .label {
+        font-weight: 600;
+        color: #e50914;
+    }
+
+/* Sección tecnologías */
+
+.about-tech {
+    background: #151515;
+    border-radius: 14px;
+    padding: 1.4rem 1.6rem;
+    border: 1px solid #2b2b2b;
+}
+
+.tech-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-top: 0.6rem;
+}
+
+    .tech-tags span {
+        font-size: 0.85rem;
+        padding: 0.35rem 0.8rem;
+        border-radius: 999px;
+        border: 1px solid #444;
+        background: #1f1f1f;
+        color: #f5f5f5;
+    }
+
+/* FOOTER */
+
+.about-footer {
+    text-align: center;
+    padding: 1rem;
+    font-size: 0.85rem;
+    color: #bbbbbb;
+    border-top: 1px solid #2b2b2b;
+    background: #050505;
+}

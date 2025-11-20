@@ -10,7 +10,7 @@ namespace CineTPI.Domain.Models;
 public partial class PreferenciasCliente
 {
     [Key]
-    [Column("id_pelicula")]
+    [Column("id_preferencia_cliente")]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int IdPreferenciaCliente { get; set; }
 

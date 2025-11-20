@@ -10,7 +10,7 @@ namespace CineTPI.Domain.Models;
 public partial class Cliente
 {
     [Key]
-    [Column("id_pelicula")]
+    [Column("cod_cliente")]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int CodCliente { get; set; }
 

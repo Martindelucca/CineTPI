@@ -10,7 +10,7 @@ namespace CineTPI.Domain.Models;
 public partial class FormatosPelicula
 {
     [Key]
-    [Column("id_pelicula")]
+    [Column("id_formato_pelicula")]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int IdFormatoPelicula { get; set; }
 

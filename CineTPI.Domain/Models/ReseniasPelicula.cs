@@ -10,7 +10,7 @@ namespace CineTPI.Domain.Models;
 public partial class ReseniasPelicula
 {
     [Key]
-    [Column("id_pelicula")]
+    [Column("id_resenia")]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int IdResenia { get; set; }
 

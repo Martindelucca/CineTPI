@@ -10,7 +10,7 @@ namespace CineTPI.Domain.Models;
 public partial class FormasPago
 {
     [Key]
-    [Column("id_pelicula")]
+    [Column("id_forma_pago")]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int IdFormaPago { get; set; }
 

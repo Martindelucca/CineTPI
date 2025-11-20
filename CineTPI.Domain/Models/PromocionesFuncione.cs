@@ -10,7 +10,7 @@ namespace CineTPI.Domain.Models;
 public partial class PromocionesFuncione
 {
     [Key]
-    [Column("id_pelicula")]
+    [Column("id_promocion_funcion")]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int IdPromocionFuncion { get; set; }
 

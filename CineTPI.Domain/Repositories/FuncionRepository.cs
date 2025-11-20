@@ -97,5 +97,42 @@ namespace CineTPI.Domain.Repositories
         {
             return _context;
         }
+        public async Task<Funcion> CreateFuncionAsync(FuncionCreateDto dto)
+        {
+            var funcion = new Funcion
+            {
+                IdPelicula = dto.IdPelicula,
+                IdSala = dto.IdSala,
+                Fecha = dto.Fecha,
+                IdHorario = dto.IdHorario
+            };
+
+            _context.Funciones.Add(funcion);
+            await _context.SaveChangesAsync();
+
+            return funcion;
+        }
+
+        public async Task<bool> DeleteFuncionAsync(int idFuncion)
+        {
+            // 1. Buscar función
+            var funcion = await _context.Funciones
+                                        .Include(f => f.ReservaDetalles)
+                                        .FirstOrDefaultAsync(f => f.IdFuncion == idFuncion);
+
+            if (funcion == null)
+                throw new Exception("La función no existe.");
+
+            // 2. ¿Tiene reservas?
+            if (funcion.ReservaDetalles.Any())
+                return false;  // ❌ No se puede borrar
+
+            // 3. Eliminar sin reservas
+            _context.Funciones.Remove(funcion);
+            await _context.SaveChangesAsync();
+
+            return true;
+        }
+
     }
 }

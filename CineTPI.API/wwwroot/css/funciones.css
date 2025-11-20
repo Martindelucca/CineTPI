@@ -1,65 +1,100 @@
+/* ===== FUNCIONES  ===== */
+
 body {
-  font-family: 'Segoe UI', sans-serif;
-  background-color: #111;
-  color: #eee;
-  margin: 0;
-  padding: 0;
+    font-family: "Poppins", sans-serif;
+    background: radial-gradient(circle at top, #1b1b1b 0%, #0d0d0d 80%);
+    color: #ffffff;
+    margin: 0;
+    padding: 0;
 }
 
+/* ===== HEADER ===== */
 header {
-  background-color: #1e1e1e;
-  padding: 15px;
-  text-align: center;
+    background-color: #1a1a1a;
+    border-bottom: 3px solid #e50914;
+    padding: 1.2rem 1.5rem;
+    text-align: center;
+    position: relative;
 }
 
+    header h1 {
+        margin: 5px 0 0;
+        font-size: 1.7rem;
+        color: #f5c518;
+        text-shadow: 0 0 8px rgba(245, 197, 24, 0.35);
+    }
+
+/* ===== BOTÓN VOLVER ===== */
+.btn-volver {
+    position: absolute;
+    left: 20px;
+    top: 14px;
+    color: #ffffff;
+    background: #e50914;
+    padding: 8px 16px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.25s ease;
+}
+
+    .btn-volver:hover {
+        background: #b00710;
+        box-shadow: 0 0 12px rgba(229, 9, 20, 0.5);
+    }
+
+/* ===== CONTENEDOR FUNCIONES ===== */
 .funciones-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 15px;
-  padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.8rem;
+    padding: 2rem;
 }
 
+/* ===== TARJETAS ===== */
+.card-funcion,
 .funcion-card {
-  background: #222;
-  border-radius: 10px;
-  padding: 15px;
-  min-width: 200px;
-  text-align: center;
-  box-shadow: 0 0 8px #0005;
-  transition: transform 0.2s;
+    background: #1a1a1a;
+    border: 1px solid #333;
+    border-radius: 12px;
+    padding: 1.5rem;
+    text-align: center;
+    transition: 0.25s ease;
+    box-shadow: 0 0 12px rgba(255, 255, 255, 0.05);
 }
 
-.funcion-card:hover {
-  transform: scale(1.05);
-  background-color: #2b2b2b;
-}
+    /* Hover estilo cine */
+    .card-funcion:hover,
+    .funcion-card:hover {
+        transform: translateY(-6px) scale(1.02);
+        border-color: #e50914;
+        box-shadow: 0 0 18px rgba(229, 9, 20, 0.45);
+    }
 
-h3 {
-  color: #ffcc00;
-  margin-bottom: 10px;
-}
-.msg-cargando, .msg-error, .msg-vacio {
-  color: #f1f1f1;
-  font-size: 1.2rem;
-  margin: 20px;
-  text-align: center;
-}
+    .card-funcion h3,
+    .funcion-card h3 {
+        color: #e50914;
+        margin-bottom: 10px;
+        font-size: 1.3rem;
+        font-weight: 700;
+    }
 
-.card-funcion {
-  background-color: #1e1e1e;
-  color: #fff;
-  border: 1px solid #444;
-  border-radius: 12px;
-  padding: 16px;
-  margin: 12px auto;
-  max-width: 500px;
-  box-shadow: 0 3px 6px rgba(0,0,0,0.3);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
+    /* Subtextos */
+    .card-funcion p,
+    .funcion-card p {
+        color: #c2c2c2;
+        font-size: 0.95rem;
+        line-height: 1.4;
+    }
 
-.card-funcion:hover {
-  transform: scale(1.02);
-  box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+/* ===== MENSAJES ===== */
+.msg-cargando,
+.msg-error,
+.msg-vacio,
+.funciones-container > p {
+    color: #f5c518;
+    font-size: 1.3rem;
+    text-align: center;
+    margin-top: 2rem;
+    grid-column: 1 / -1;
 }
-

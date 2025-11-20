@@ -10,7 +10,7 @@ namespace CineTPI.Domain.Models;
 public partial class Sucursale
 {
     [Key]
-    [Column("id_pelicula")]
+    [Column("id_sucursal")]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int IdSucursal { get; set; }
 

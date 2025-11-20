@@ -10,7 +10,7 @@ namespace CineTPI.Domain.Models;
 public partial class DiasPromocione
 {
     [Key]
-    [Column("id_pelicula")]
+    [Column("id_dia_promocion")]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int IdDiaPromocion { get; set; }
 

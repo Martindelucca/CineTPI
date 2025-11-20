@@ -10,7 +10,7 @@ namespace CineTPI.Domain.Models;
 public partial class Reserva
 {
     [Key]
-    [Column("id_pelicula")]
+    [Column("id_reserva")]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int IdReserva { get; set; }
 
@@ -21,6 +21,9 @@ public partial class Reserva
     public int IdEstadoReserva { get; set; }
 
     public decimal MontoReserva { get; set; }
+
+    [Column("fecha_expiracion")]
+    public DateTime? FechaExpiracion { get; set; }
 
     public virtual Cliente CodClienteNavigation { get; set; }
 

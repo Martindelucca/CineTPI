@@ -11,7 +11,7 @@ public partial class Pelicula
 {
     [Key]
     [Column("id_pelicula")]
-    [DatabaseGenerated(DatabaseGeneratedOption.Identity)] // 🔥 CLAVE para que EF no intente insertarlo
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)] 
     public int IdPelicula { get; set; }
 
     [Required]

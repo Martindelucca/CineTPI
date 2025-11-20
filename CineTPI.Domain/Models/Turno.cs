@@ -10,7 +10,7 @@ namespace CineTPI.Domain.Models;
 public partial class Turno
 {
     [Key]
-    [Column("id_pelicula")]
+    [Column("id_turno")]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int IdTurno { get; set; }
 

@@ -1,0 +1,119 @@
+﻿/* ===== BUTACAS CINE ===== */
+
+body {
+    font-family: "Poppins", sans-serif;
+    background: radial-gradient(circle at top, #1b1b1b 0%, #0d0d0d 80%);
+    color: #ffffff;
+    margin: 0;
+    padding: 0;
+}
+
+/* HEADER */
+header {
+    background-color: #1a1a1a;
+    padding: 1.2rem;
+    border-bottom: 3px solid #e50914;
+    text-align: center;
+}
+
+    header h1 {
+        margin: 0;
+        color: #f5c518;
+        font-size: 1.8rem;
+        text-shadow: 0 0 8px rgba(245, 197, 24, 0.35);
+    }
+
+/* CONTENIDO */
+main {
+    padding: 2rem;
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+/* GRID DE BUTACAS */
+#butacas-grid {
+    display: grid;
+    grid-template-columns: repeat(10, 35px);
+    gap: 8px;
+    justify-content: center;
+    margin: 1.5rem auto;
+}
+
+/* BUTACA GENERAL */
+.butaca {
+    width: 35px;
+    height: 35px;
+    border-radius: 6px;
+    font-size: 12px;
+    line-height: 35px;
+    text-align: center;
+    cursor: pointer;
+    transition: 0.2s ease;
+    border: 1px solid #333;
+}
+
+    /* ——— ESTADOS ——— */
+
+    /* LIBRE */
+    .butaca.Disponible {
+        background: #f5c518; /* amarillo premium */
+        color: #111;
+        font-weight: 600;
+    }
+
+        .butaca.Disponible:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 10px rgba(245, 197, 24, 0.55);
+        }
+
+    /* OCUPADA */
+    .butaca.Vendida,
+    .butaca.Reservada {
+        background: #e50914;
+        color: #fff;
+        cursor: not-allowed;
+        opacity: 0.7;
+    }
+
+    /* SELECCIONADA */
+    .butaca.Seleccionada {
+        background: #1b98f5; /* azul cine (HBO style) */
+        color: #fff;
+        font-weight: bold;
+        box-shadow: 0 0 12px rgba(27, 152, 245, 0.5);
+    }
+
+/* TÍTULOS */
+h3 {
+    color: #f5c518;
+    margin-top: 2rem;
+    text-shadow: 0 0 6px rgba(245,197,24,0.35);
+}
+
+/* LISTA DE SELECCIONADAS */
+#seleccion-lista {
+    list-style: none;
+    padding: 0;
+    margin-top: 1rem;
+    color: #fff;
+}
+
+/* BOTÓN CONFIRMAR */
+#btn-confirmar {
+    background: #e50914;
+    border: none;
+    padding: 12px 18px;
+    color: #fff;
+    font-weight: 600;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: 0.25s ease;
+}
+
+    #btn-confirmar:hover {
+        background: #b00710;
+        box-shadow: 0 0 12px rgba(229, 9, 20, 0.45);
+        transform: translateY(-2px);
+    }

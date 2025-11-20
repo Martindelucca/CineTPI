@@ -1,13 +1,13 @@
 /* ================================
-   🎬 DASHBOARD CINE TPI - DARK PRO
+   🎬 DASHBOARD CINE TPI - PREMIUM
    ================================ */
 
 body {
-    background-color: #121212;
-    color: #f5f5f5;
-    font-family: "Segoe UI", sans-serif;
     margin: 0;
     padding: 0;
+    background: radial-gradient(circle at top, #1b1b1b 0%, #0d0d0d 80%);
+    color: #f5f5f5;
+    font-family: "Poppins", sans-serif;
 }
 
 /* ======================
@@ -19,109 +19,127 @@ body {
     position: fixed;
     top: 0;
     left: 0;
-    background: linear-gradient(180deg, #1c1c1f, #111);
-    color: #fff;
+    background: #1a1a1a;
+    border-right: 2px solid #e50914;
     display: flex;
     flex-direction: column;
-    padding: 22px;
-    border-right: 1px solid #2a2a2a;
-}
-
-.sidebar h4 {
-    font-weight: 600;
-    margin-bottom: 2rem;
-    color: #ffcc00;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
-.sidebar a {
-    color: #bbbbbb;
-    text-decoration: none;
-    padding: 10px 5px;
-    width: 100%;
-    transition: 0.25s;
-    font-size: 15px;
-    border-radius: 5px;
-}
-
-.sidebar a i {
-    margin-right: 8px;
-}
-
-.sidebar a:hover {
-    background-color: #242424;
-    color: #ffcc00;
-    padding-left: 12px;
-}
-
-/* ======================
-   CONTENIDO
-   ====================== */
-.content {
-    margin-left: 260px;
     padding: 25px;
 }
 
+    .sidebar h4 {
+        font-weight: 700;
+        margin-bottom: 2rem;
+        color: #f5c518; /* amarillo premium */
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        text-shadow: 0 0 8px rgba(245, 197, 24, 0.35);
+    }
+
+    .sidebar a {
+        color: #d1d1d1;
+        text-decoration: none;
+        padding: 10px 8px;
+        width: 100%;
+        font-size: 15px;
+        border-radius: 6px;
+        transition: 0.25s ease;
+        font-weight: 500;
+    }
+
+        .sidebar a i {
+            margin-right: 8px;
+        }
+
+        .sidebar a:hover {
+            background-color: #2a2a2a;
+            color: #f5c518;
+            padding-left: 14px;
+            box-shadow: 0 0 10px rgba(245, 197, 24, 0.3);
+        }
+
 /* ======================
-   NAVBAR
+   CONTENIDO PRINCIPAL
+   ====================== */
+.content {
+    margin-left: 260px;
+    padding: 30px;
+}
+
+/* ======================
+   NAVBAR SUPERIOR
    ====================== */
 .navbar {
     background-color: #1a1a1a !important;
-    border-radius: 10px;
-    padding: 12px 20px;
-    margin-bottom: 25px;
-    border: 1px solid #333;
+    border: 2px solid #333;
+    border-bottom: 3px solid #e50914;
+    border-radius: 12px;
+    padding: 14px 22px;
+    margin-bottom: 30px;
+    box-shadow: 0 0 12px rgba(229, 9, 20, 0.15);
 }
 
 .navbar-brand {
-    color: #ffcc00 !important;
-    font-weight: 600;
+    color: #f5c518 !important;
+    font-weight: 700;
+    letter-spacing: 0.5px;
 }
 
 .navbar a {
-    color: #ffcc00 !important;
+    color: #e50914 !important;
     margin-left: 20px;
-    font-weight: 500;
-    transition: .2s;
+    font-weight: 600;
+    transition: 0.2s;
 }
 
-.navbar a:hover {
-    color: #ffe27a !important;
-}
+    .navbar a:hover {
+        color: #ff6b6b !important;
+    }
 
 /* ======================
    TABLAS
    ====================== */
 .table {
-    background-color: #1d1d1d;
+    background-color: #1b1b1b;
     color: #ececec;
-    border: 1px solid #333;
-    border-radius: 8px;
+    border-radius: 10px;
     overflow: hidden;
+    border: 1px solid #333;
 }
 
-.table thead {
-    background-color: #2a2a2a !important;
-    color: #ffcc00 !important;
-}
+    .table thead {
+        background-color: #111 !important;
+        border-bottom: 2px solid #e50914;
+    }
 
-.table tbody tr:hover {
-    background-color: #222;
-}
+        .table thead th {
+            color: #f5c518; /* amarillo premium */
+        }
 
-.table td, .table th {
-    vertical-align: middle;
-}
+    .table tbody tr:hover {
+        background-color: #222;
+    }
+
+    .table td, .table th {
+        vertical-align: middle;
+        padding: 0.9rem;
+    }
 
 /* ======================
-   TARGETAS / METRICAS
+   TARJETAS / MÉTRICAS
    ====================== */
 .p-3.bg-light {
-    background-color: #1f1f1f !important;
+    background-color: #1a1a1a !important;
     color: #eaeaea;
     border: 1px solid #333 !important;
+    border-radius: 14px;
+    box-shadow: 0 0 12px rgba(255, 255, 255, 0.04);
+    transition: 0.25s ease;
 }
+
+    .p-3.bg-light:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 0 14px rgba(245, 197, 24, 0.2);
+    }
 
 .p-3 .text-muted {
     color: #bbbbbb !important;
@@ -131,69 +149,73 @@ body {
    BOTONES
    ====================== */
 .btn-dark {
-    background-color: #ffcc00 !important;
-    color: #121212 !important;
+    background-color: #e50914 !important;
+    color: #fff !important;
     border: none;
-    padding: 10px;
+    padding: 10px 16px;
+    border-radius: 10px;
     font-weight: 600;
-    transition: 0.2s;
+    transition: 0.25s ease;
 }
 
-.btn-dark:hover {
-    background-color: #e6b800 !important;
-}
+    .btn-dark:hover {
+        background-color: #b00710 !important;
+        transform: translateY(-2px);
+        box-shadow: 0 0 10px rgba(229, 9, 20, 0.35);
+    }
 
 /* ======================
-   HEADERS TITULOS
+   TITULOS
    ====================== */
 h3 {
-    color: #ffcc00;
-    font-weight: 600;
+    color: #f5c518;
+    font-weight: 700;
     margin-bottom: 20px;
+    text-shadow: 0 0 8px rgba(245, 197, 24, 0.35);
 }
 
 /* ======================
-   CANVAS / CHARTS
+   GRAFICOS / CHARTS
    ====================== */
 .chart-container {
     width: 100%;
     max-width: 650px;
-    margin: 0 auto 25px;
-    padding: 12px;
+    margin: 0 auto 30px;
+    padding: 15px;
 }
 
-.chart-container canvas {
-    width: 100% !important;
-    height: auto !important;
-    background-color: #1e1e1e;
-    border-radius: 12px;
-    padding: 10px;
-    border: 1px solid #333;
-}
+    .chart-container canvas {
+        width: 100% !important;
+        height: auto !important;
+        background-color: #1e1e1e;
+        border-radius: 12px;
+        padding: 12px;
+        border: 1px solid #333;
+        box-shadow: 0 0 14px rgba(229, 9, 20, 0.1);
+    }
 
 /* ======================
-   INPUTS / FORMS
+   INPUTS
    ====================== */
 label {
-    color: #ffcc00;
-    font-weight: 500;
+    color: #f5c518;
+    font-weight: 600;
 }
 
 .form-control {
-    background-color: #1b1b1b;
+    background-color: #0d0d0d;
     border: 1px solid #333;
-    color: #f5f5f5;
+    color: #ffffff;
 }
 
-.form-control:focus {
-    background-color: #222;
-    color: #fff;
-    border-color: #ffcc00;
-    box-shadow: none;
-}
+    .form-control:focus {
+        background-color: #1a1a1a;
+        border-color: #e50914;
+        box-shadow: 0 0 0 2px rgba(229, 9, 20, 0.3);
+    }
 
 /* ======================
-   SCROLLBAR (PREMIUM)
+   SCROLLBAR PREMIUM
    ====================== */
 ::-webkit-scrollbar {
     width: 9px;
@@ -208,6 +230,6 @@ label {
     border-radius: 50px;
 }
 
-::-webkit-scrollbar-thumb:hover {
-    background: #666;
-}
+    ::-webkit-scrollbar-thumb:hover {
+        background: #666;
+    }

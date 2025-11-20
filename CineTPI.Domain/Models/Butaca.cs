@@ -10,7 +10,7 @@ namespace CineTPI.Domain.Models;
 public partial class Butaca
 {
     [Key]
-    [Column("id_pelicula")]
+    [Column("id_butaca")]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int IdButaca { get; set; }
 
