@@ -10,7 +10,7 @@ namespace CineTPI.Domain.Models;
 public partial class CondicionesIva
 {
     [Key]
-    [Column("id_pelicula")]
+    [Column("id_condicion_iva")]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int IdCondicionIva { get; set; }
 

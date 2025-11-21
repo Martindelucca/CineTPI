@@ -1,69 +1,83 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Gestión de Películas - CineTPI</title>
-  <link rel="stylesheet" href="css/soporte-peliculas.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gestión de Películas - CineTPI</title>
+
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/soporte-peliculas.css">
 </head>
 
 <body>
-  <header class="header">
-    <h1>🎬 Gestión de Películas (ABMC)</h1>
-    <nav>
-      <a href="admin.html">🏠 Panel Admin</a>
-      <a href="index.html">🎟️ Volver a Cartelera</a>
-      <a href="#" id="cerrar-sesion">🚪 Cerrar Sesión</a>
-    </nav>
-  </header>
 
-  <main class="container">
-    <section class="form-section">
-      <h2>Formulario de Película</h2>
-      <form id="form-pelicula">
-        <input type="hidden" id="pelicula-id" />
+    <!-- ========== HEADER ========== -->
+    <header class="header">
+        <h1>🎬 Gestión de Películas (ABMC)</h1>
 
-        <div class="form-group">
-          <label for="titulo">Título:</label>
-          <input type="text" id="titulo" placeholder="Ej: Duna: Parte Dos" required />
-        </div>
+        <nav>
+            <a href="admin.html">Panel Admin</a>
+            <a href="index.html">Volver a Cartelera</a>
+            <a href="acercade.html">Acerca de</a>
+            <a href="#" id="cerrar-sesion">Cerrar Sesión</a>
+        </nav>
+    </header>
 
-        <div class="form-group">
-          <label for="descripcion">Descripción:</label>
-          <textarea id="descripcion" placeholder="Sinopsis o breve descripción..."></textarea>
-        </div>
+    <!-- ========== CONTENIDO PRINCIPAL ========== -->
+    <main class="container">
 
-        <div class="form-group">
-          <label for="fecha-lanzamiento">Fecha de Estreno:</label>
-          <input type="date" id="fecha-lanzamiento" required />
-        </div>
+        <!-- === FORMULARIO === -->
+        <section class="form-section">
+            <h2>Formulario de Película</h2>
 
-        <div class="buttons">
-          <button type="button" id="btn-guardar" class="btn-primary">💾 Guardar</button>
-          <button type="button" id="btn-cancelar" class="btn-secondary">Cancelar</button>
-        </div>
-      </form>
-    </section>
+            <form id="form-pelicula">
+                <input type="hidden" id="pelicula-id">
 
-    <section class="list-section">
-      <h2>Listado de Películas</h2>
-      <table id="tabla-peliculas">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Título</th>
-            <th>Descripción</th>
-            <th>Fecha de Estreno</th>
-            <th>Acciones</th>
-          </tr>
-        </thead>
-        <tbody id="tbody-peliculas">
-          <tr><td colspan="5">Cargando películas...</td></tr>
-        </tbody>
-      </table>
-    </section>
-  </main>
+                <div class="form-group">
+                    <label for="titulo">Título:</label>
+                    <input type="text" id="titulo" placeholder="Ej: Duna: Parte Dos" required>
+                </div>
 
-  <script src="js/soporte-peliculas.js"></script>
+                <div class="form-group">
+                    <label for="descripcion">Descripción:</label>
+                    <textarea id="descripcion" placeholder="Sinopsis o breve descripción..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="fecha-lanzamiento">Fecha de Estreno:</label>
+                    <input type="date" id="fecha-lanzamiento" required>
+                </div>
+
+                <div class="buttons">
+                    <button type="button" id="btn-guardar" class="btn-primary">💾 Guardar</button>
+                    <button type="button" id="btn-cancelar" class="btn-secondary">Cancelar</button>
+                </div>
+            </form>
+        </section>
+
+        <!-- === LISTADO === -->
+        <section class="list-section">
+            <h2>Listado de Películas</h2>
+
+            <table id="tabla-peliculas">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Título</th>
+                        <th>Descripción</th>
+                        <th>Fecha de Estreno</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+
+                <tbody id="tbody-peliculas">
+                    <tr><td colspan="5">Cargando películas...</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+    </main>
+
+    <script src="js/soporte-peliculas.js"></script>
 </body>
 </html>

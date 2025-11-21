@@ -10,7 +10,7 @@ namespace CineTPI.Domain.Models;
 public partial class Paise
 {
     [Key]
-    [Column("id_pelicula")]
+    [Column("id_pais")]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int IdPais { get; set; }
 

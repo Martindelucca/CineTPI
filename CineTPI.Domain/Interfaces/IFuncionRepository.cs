@@ -12,5 +12,7 @@ namespace CineTPI.Domain.Interfaces
     {
         Task<IEnumerable<FuncionDTO>> GetFuncionesPorPeliculaAsync(int idPelicula);
         Task<IEnumerable<Butaca>> GetButacasOcupadasAsync(int idFuncion);
+        Task<Funcion> CreateFuncionAsync(FuncionCreateDto dto);
+        Task<bool> DeleteFuncionAsync(int idFuncion);
     }
 }

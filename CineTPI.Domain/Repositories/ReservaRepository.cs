@@ -80,11 +80,14 @@ namespace CineTPI.Domain.Repositories
                 }
                 catch (Exception ex)
                 {
-                    // 7. Si algo falló (ej: butaca ya reservada), revertimos todo
                     await transaction.RollbackAsync();
-                    // (Podríamos loggear el error ex)
-                    throw new Exception("No se pudo completar la reserva. Intente de nuevo.");
+
+                    var mensaje = ex.InnerException?.Message ?? ex.Message;
+
+                    throw new Exception("ERROR REAL → " + mensaje);
                 }
+
+
             }
         }
 

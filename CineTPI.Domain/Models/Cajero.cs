@@ -10,7 +10,7 @@ namespace CineTPI.Domain.Models;
 public partial class Cajero
 {
     [Key]
-    [Column("id_pelicula")]
+    [Column("id_cajero")]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int IdCajero { get; set; }
 

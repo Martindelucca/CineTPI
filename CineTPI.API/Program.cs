@@ -1,20 +1,17 @@
-using CineTPI.API.Middleware; 
+using CineTPI.API.Middleware;
 using CineTPI.Domain.Interfaces;
-using CineTPI.Domain.Models;
 using CineTPI.Domain.Repositories;
 using CineTPI.Domain.Services;
+using CineTPI.Domain.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-
 
 builder.Services.AddDbContext<CineDBContext>(options =>
     options.UseSqlServer(connectionString));
@@ -22,25 +19,56 @@ builder.Services.AddDbContext<CineDBContext>(options =>
 builder.Services.AddControllers()
     .AddJsonOptions(options =>
     {
-        // Forzamos a que la API use camelCase (ej: "idFuncion")
-        // en lugar de PascalCase (ej: "IdFuncion") para el JSON.
-        options.JsonSerializerOptions.PropertyNamingPolicy = System.Text.Json.JsonNamingPolicy.CamelCase;
+        options.JsonSerializerOptions.PropertyNamingPolicy =
+            System.Text.Json.JsonNamingPolicy.CamelCase;
     });
+
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+
+
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Title = "CineTPI.API",
+        Version = "v1"
+    });
+
+    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        Description = "Ingrese el token JWT as√≠: Bearer {token}",
+        Name = "Authorization",
+        In = ParameterLocation.Header,
+        Type = SecuritySchemeType.ApiKey,
+        Scheme = "Bearer"
+    });
+
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                }
+            },
+            new string[] {}
+        }
+    });
+});
+
 
 builder.Services.AddScoped<IPeliculaRepository, PeliculaRepository>();
 builder.Services.AddScoped<IFuncionRepository, FuncionRepository>();
 builder.Services.AddScoped<IButacaRepository, ButacaRepository>();
 builder.Services.AddScoped<IClienteRepository, ClienteRepository>();
-builder.Services.AddScoped<IButacaRepository, ButacaRepository>();
 builder.Services.AddScoped<IReservaRepository, ReservaRepository>();
 builder.Services.AddScoped<IDashboardRepository, DashboardRepository>();
 
-// 7. Registrar el AuthService
 builder.Services.AddScoped<IAuthService, AuthService>();
 
-// 8. Configurar AutenticaciÛn JWT
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
@@ -52,28 +80,29 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidateIssuerSigningKey = true,
             ValidIssuer = builder.Configuration["Jwt:Issuer"],
             ValidAudience = builder.Configuration["Jwt:Audience"],
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
+            IssuerSigningKey = new SymmetricSecurityKey(
+                Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"])
+            )
         };
     });
-
 
 var app = builder.Build();
 
 app.UseMiddleware<GlobalExceptionMiddleware>();
-
 
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-app.UseDefaultFiles(); // <-- Busca index.html como p·gina por defecto
-app.UseStaticFiles();  // <-- Permite servir archivos desde wwwroot
+
+app.UseDefaultFiles();
+app.UseStaticFiles();
 
 app.UseHttpsRedirection();
 
-app.UseAuthentication(); // <-- øQuiÈn sos?
-app.UseAuthorization();  // <-- øTenÈs permiso?
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapControllers();
 

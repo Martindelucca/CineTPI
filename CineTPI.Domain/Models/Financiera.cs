@@ -10,7 +10,7 @@ namespace CineTPI.Domain.Models;
 public partial class Financiera
 {
     [Key]
-    [Column("id_pelicula")]
+    [Column("id_financiera")]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int IdFinanciera { get; set; }
 

@@ -1,91 +1,108 @@
-body {
-  font-family: "Segoe UI", Arial, sans-serif;
-  background-color: #f4f6f9;
-  margin: 0;
-  padding: 0;
-  color: #333;
-}
+/* ===== PANEL ADMIN  ===== */
 
+/* Header */
 .admin-header {
-  background-color: #0078d7;
-  color: white;
-  padding: 1rem 2rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+    background-color: #1a1a1a;
+    border-bottom: 3px solid #e50914;
+    padding: 1.3rem 2.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 10;
 }
 
-.admin-header h1 {
-  margin: 0;
-  font-size: 1.3rem;
-}
+    .admin-header h1 {
+        margin: 0;
+        font-size: 1.8rem;
+        font-weight: 700;
+        letter-spacing: 1px;
+        color: #ffffff;
+        text-shadow: 0 0 8px rgba(229, 9, 20, 0.4);
+    }
 
-.user-info {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
+/* Usuario + Logout */
+.user-info span {
+    color: #f5c518;
+    font-size: 1rem;
+    font-weight: 600;
 }
 
 #btn-logout {
-  background-color: #ffffff;
-  color: #0078d7;
-  border: none;
-  padding: 0.4rem 1rem;
-  border-radius: 5px;
-  cursor: pointer;
-  font-weight: 500;
+    background-color: #e50914;
+    color: #ffffff;
+    border: none;
+    padding: 0.55rem 1.2rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.25s ease;
 }
 
-#btn-logout:hover {
-  background-color: #e6e6e6;
-}
+    #btn-logout:hover {
+        background-color: #b00710;
+        transform: scale(1.08);
+        box-shadow: 0 0 12px rgba(229, 9, 20, 0.5);
+    }
 
+/* Contenedor principal */
 .admin-container {
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  padding: 2rem;
+    display: flex;
+    justify-content: center;
+    padding: 2.5rem 2rem;
 }
 
+/* Menú (grilla de cards) */
 .admin-menu {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 2rem;
-  max-width: 1000px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 2.5rem;
+    width: 100%;
+    max-width: 1200px;
 }
 
+/* TARJETAS (cards) cine premium */
 .card {
-  background: white;
-  border-radius: 8px;
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
-  width: 280px;
-  text-align: center;
-  padding: 2rem 1.5rem;
-  transition: transform 0.2s, box-shadow 0.2s;
-  cursor: pointer;
+    background: #1a1a1a;
+    border: 1px solid #333;
+    border-radius: 12px;
+    width: 100%;
+    text-align: center;
+    padding: 2.3rem 1.8rem;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    /* efecto cartel */
+    box-shadow: 0 0 15px rgba(255, 2, 2, 0.1);
 }
 
-.card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
+    .card:hover {
+        transform: translateY(-8px) scale(1.02);
+        border-color: #e50914;
+        box-shadow: 0 0 18px rgba(229, 9, 20, 0.45);
+    }
 
-.card h2 {
-  color: #0078d7;
-  margin-bottom: 0.5rem;
-}
+    .card h2 {
+        color: #e50914;
+        margin-bottom: 0.8rem;
+        font-size: 1.4rem;
+        font-weight: 700;
+        text-shadow: 0 0 6px rgba(229, 9, 20, 0.35);
+    }
 
-.card p {
-  font-size: 0.9rem;
-  color: #555;
-}
+    .card p {
+        font-size: 0.95rem;
+        color: #c2c2c2;
+        line-height: 1.4;
+    }
 
+/* Footer */
 .admin-footer {
-  text-align: center;
-  padding: 1rem;
-  background-color: #fff;
-  border-top: 1px solid #ddd;
-  color: #777;
-  font-size: 0.9rem;
+    text-align: center;
+    padding: 1.3rem;
+    background-color: #0d0d0d;
+    border-top: 1px solid #333;
+    color: #c2c2c2;
+    font-size: 0.85rem;
+    margin-top: 2rem;
 }

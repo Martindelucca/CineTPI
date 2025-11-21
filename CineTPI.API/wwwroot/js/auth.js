@@ -1,15 +1,29 @@
-// Este script se ejecuta INMEDIATAMENTE (desde el <head>)
+// Este script se ejecuta INMEDIATAMENTE (desde <head>)
 
-// 1. Buscamos el token en el almacén local del navegador
 const token = localStorage.getItem('token');
 
-// 2. Verificamos si existe
+// Si no hay token, redirige a login SOLO en páginas protegidas
 if (!token) {
-    // 3. Si NO hay token, el usuario no ha iniciado sesión.
-    // Lo "pateamos" de vuelta a la página de login.
-    console.warn('Acceso denegado. No se encontró token.');
-    window.location.href = 'login.html';
+    // Lista de páginas que requieren login
+    const paginasProtegidas = [
+        "admin.html",
+        "dashboard.html",
+        "soporte-peliculas.html",
+        "funciones.html",
+        "butacas.html"
+    ];
+
+    const paginaActual = window.location.pathname.split("/").pop();
+
+    if (paginasProtegidas.includes(paginaActual)) {
+        window.location.href = "login.html";
+    }
 }
 
-// Si el token SÍ existe, el script termina y la página (index.html)
-// se carga normalmente.
+// Función genérica para cerrar sesión
+function logout() {
+    localStorage.removeItem("token");
+    localStorage.removeItem("usuarioNombre");
+    localStorage.removeItem("rol");
+    window.location.href = "login.html";
+}

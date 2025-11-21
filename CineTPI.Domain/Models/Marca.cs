@@ -10,7 +10,7 @@ namespace CineTPI.Domain.Models;
 public partial class Marca
 {
     [Key]
-    [Column("id_pelicula")]
+    [Column("id_marca")]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int IdMarca { get; set; }
 

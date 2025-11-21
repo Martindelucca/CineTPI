@@ -10,7 +10,7 @@ namespace CineTPI.Domain.Models;
 public partial class Direccione
 {
     [Key]
-    [Column("id_pelicula")]
+    [Column("id_direccion")]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int IdDireccion { get; set; }
 

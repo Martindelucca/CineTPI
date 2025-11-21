@@ -10,7 +10,7 @@ namespace CineTPI.Domain.Models;
 public partial class Provincia
 {
     [Key]
-    [Column("id_pelicula")]
+    [Column("id_provincia")]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int IdProvincia { get; set; }
 

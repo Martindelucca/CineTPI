@@ -16,6 +16,5 @@ namespace CineTPI.Domain.DTOs
 
         public DateOnly? FechaLanzamiento { get; set; }
 
-
     }
 }

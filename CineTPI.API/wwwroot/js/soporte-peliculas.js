@@ -16,6 +16,7 @@ async function cargarPeliculas() {
 
         const data = await response.json();
         renderPeliculas(data);
+
     } catch (err) {
         console.error("Error al cargar:", err);
         tbody.innerHTML = "<tr><td colspan='6'>Error al cargar películas.</td></tr>";
@@ -48,7 +49,6 @@ function renderPeliculas(lista) {
     });
 }
 
-
 // === GUARDAR PELÍCULA ===
 async function guardarPelicula() {
     const id = document.getElementById("pelicula-id").value;
@@ -64,6 +64,7 @@ async function guardarPelicula() {
     const esNuevo = id === "" || id === "0";
     const method = esNuevo ? "POST" : "PUT";
     const url = esNuevo ? API_URL : `${API_URL}/${id}`;
+
     const body = esNuevo
         ? { Titulo: titulo, Descripcion: descripcion, FechaLanzamiento: fecha }
         : { IdPelicula: parseInt(id), Titulo: titulo, Descripcion: descripcion, FechaLanzamiento: fecha };
@@ -83,6 +84,7 @@ async function guardarPelicula() {
         await cargarPeliculas();
         limpiarFormulario();
         alert(esNuevo ? "Película agregada correctamente." : "Película actualizada correctamente.");
+
     } catch (err) {
         console.error("Error al guardar:", err);
         alert("Error al guardar la película.");
@@ -99,10 +101,12 @@ async function editarPelicula(id) {
         if (!response.ok) throw new Error("Error al obtener película.");
 
         const data = await response.json();
+
         document.getElementById("pelicula-id").value = data.idPelicula;
         document.getElementById("titulo").value = data.titulo;
         document.getElementById("descripcion").value = data.descripcion ?? "";
         document.getElementById("fecha-lanzamiento").value = data.fechaLanzamiento.split("T")[0];
+
     } catch (err) {
         console.error("Error al editar:", err);
         alert("No se pudo cargar la película para editar.");
@@ -123,6 +127,7 @@ async function eliminarPelicula(id) {
 
         await cargarPeliculas();
         alert("Película eliminada correctamente.");
+
     } catch (err) {
         console.error("Error al eliminar:", err);
         alert("Error al eliminar película.");

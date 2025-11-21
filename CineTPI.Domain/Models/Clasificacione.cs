@@ -10,7 +10,7 @@ namespace CineTPI.Domain.Models;
 public partial class Clasificacione
 {
     [Key]
-    [Column("id_pelicula")]
+    [Column("id_clasificacion")]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int IdClasificacion { get; set; }
 
