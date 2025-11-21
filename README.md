@@ -61,5 +61,10 @@ La solución (`CineTPI.sln`) está dividida en 3 proyectos:
 
 ### 👤 Responsables (Team)
 
-* **Martin de Lucca** - [405200
-]
+* **Martin de Lucca** - [405200]
+* **Aguirre Jesus** - [412240]
+* **Bini Micaela** - [405200
+* **Caceres Valentin** - [412135]
+* **Arias Marianela** - [113107]
+* **Diomedi Bruno** - [404925]
+        
