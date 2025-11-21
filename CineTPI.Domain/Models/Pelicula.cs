@@ -11,7 +11,7 @@ public partial class Pelicula
 {
     [Key]
     [Column("id_pelicula")]
-    [DatabaseGenerated(DatabaseGeneratedOption.Identity)] // 🔥 CLAVE para que EF no intente insertarlo
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)] 
     public int IdPelicula { get; set; }
 
     [Required]
@@ -32,6 +32,9 @@ public partial class Pelicula
     public int? IdDistribuidor { get; set; }
 
     public int? IdDirector { get; set; }
+
+    public string? ImagenUrl { get; set; }
+
 
     public virtual ICollection<Funcion> Funciones { get; set; } = new List<Funcion>();
 
