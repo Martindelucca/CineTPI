@@ -1,6 +1,5 @@
-/* ===== PANEL ADMIN  ===== */
+/*  PANEL ADMIN  */
 
-/* Header */
 .admin-header {
     background-color: #1a1a1a;
     border-bottom: 3px solid #e50914;
@@ -62,7 +61,7 @@
     max-width: 1200px;
 }
 
-/* TARJETAS (cards) cine premium */
+/* TARJETAS (cards)  */
 .card {
     background: #1a1a1a;
     border: 1px solid #333;
@@ -72,7 +71,6 @@
     padding: 2.3rem 1.8rem;
     transition: all 0.3s ease;
     cursor: pointer;
-    /* efecto cartel */
     box-shadow: 0 0 15px rgba(255, 2, 2, 0.1);
 }
 
@@ -96,7 +94,6 @@
         line-height: 1.4;
     }
 
-/* Footer */
 .admin-footer {
     text-align: center;
     padding: 1.3rem;

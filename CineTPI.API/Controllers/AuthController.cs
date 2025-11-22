@@ -31,11 +31,9 @@ public class AuthController : ControllerBase
 
         if (loginResponse == null)
         {
-            // Damos un error genérico por seguridad
             return Unauthorized("Usuario o contraseña incorrectos.");
         }
 
-        // ¡Éxito! Devolvemos 200 OK con el token
         return Ok(loginResponse);
     }
 }

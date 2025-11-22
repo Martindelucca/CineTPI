@@ -3,7 +3,7 @@ using CineTPI.Domain.DTOs;
 using CineTPI.Domain.Interfaces;
 using CineTPI.Domain.Models;
 using Microsoft.Data.SqlClient;
-using Microsoft.EntityFrameworkCore; // ¡Importante para FromSqlRaw!
+using Microsoft.EntityFrameworkCore; 
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -46,7 +46,6 @@ namespace CineTPI.Domain.Repositories
 
         public async Task<IEnumerable<ReporteClientesFrecuentesDto>> GetReporteClientesFrecuentes()
         {
-            // (Llamamos al SP sin parámetros, para que use los default)
             return await _context.Set<ReporteClientesFrecuentesDto>()
                 .FromSqlRaw("EXEC SP_Clientes_Frecuentes_Promos")
                 .ToListAsync();
@@ -91,7 +90,6 @@ namespace CineTPI.Domain.Repositories
 
             await using var reader = await cmd.ExecuteReaderAsync();
 
-            // === PRIMER RESULTSET ===
             if (await reader.ReadAsync())
             {
                 result.Info = new PerfilClienteInfoDto
@@ -110,7 +108,6 @@ namespace CineTPI.Domain.Repositories
                 };
             }
 
-            // === SEGUNDO RESULTSET ===
             if (await reader.NextResultAsync())
             {
                 while (await reader.ReadAsync())

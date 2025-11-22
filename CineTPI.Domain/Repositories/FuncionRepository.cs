@@ -23,8 +23,8 @@ namespace CineTPI.Domain.Repositories
             // Usamos "Include" para traer datos relacionados (la Película y la Sala)
             // Esto es muy útil para la API
             return await _context.Funciones
-                .Include(f => f.IdPeliculaNavigation) // Asume que EF Power Tools creó la navegación
-                .Include(f => f.IdSalaNavigation)   // Asume que EF Power Tools creó la navegación
+                .Include(f => f.IdPeliculaNavigation) 
+                .Include(f => f.IdSalaNavigation)   
                 .FirstOrDefaultAsync(f => f.IdFuncion == id);
         }
 
@@ -61,21 +61,20 @@ namespace CineTPI.Domain.Repositories
         {
             var hoy = DateOnly.FromDateTime(DateTime.Today);
 
-            // 1. Forzamos la carga con Include (que ahora SÍ funcionará)
             return await _context.Funciones
-                .Include(f => f.IdSalaNavigation)    // <-- Carga Ansiosa de Sala
-                .Include(f => f.IdHorarioNavigation) // <-- Carga Ansiosa de Horario
-                .AsNoTracking() // <-- Buena práctica para consultas de solo lectura
+                .Include(f => f.IdSalaNavigation)  
+                .Include(f => f.IdHorarioNavigation) 
+                .AsNoTracking() 
 
-                // 2. Filtramos
+                // Filtramos
                 .Where(f => f.IdPelicula == idPelicula && f.Fecha >= hoy)
                 .OrderBy(f => f.Fecha)
 
-                // 3. Proyectamos a DTO (esto evita 100% los errores de bucle JSON)
+                // Proyectamos
                 .Select(f => new FuncionDTO
                 {
                     IdFuncion = f.IdFuncion,
-                    Fecha = f.Fecha.ToShortDateString(), // Usamos la corrección de ayer
+                    Fecha = f.Fecha.ToShortDateString(), 
 
                     NombreSala = f.IdSalaNavigation.NroSala.HasValue
                                  ? $"Sala {f.IdSalaNavigation.NroSala.Value}"
@@ -90,7 +89,6 @@ namespace CineTPI.Domain.Repositories
         {
             // Esta consulta es la más compleja del TPI.
             // Requiere cruzar [tickets] (tabla 'entradas') y [reservas_detalle]
-            // La implementaremos cuando construyamos el endpoint de "selección de butacas".
             throw new NotImplementedException("Esta lógica se implementará en la capa de Servicios o aquí más adelante.");
         }
         public CineDBContext GetDbContext()
@@ -115,7 +113,7 @@ namespace CineTPI.Domain.Repositories
 
         public async Task<bool> DeleteFuncionAsync(int idFuncion)
         {
-            // 1. Buscar función
+            // Buscar función
             var funcion = await _context.Funciones
                                         .Include(f => f.ReservaDetalles)
                                         .FirstOrDefaultAsync(f => f.IdFuncion == idFuncion);
@@ -123,11 +121,10 @@ namespace CineTPI.Domain.Repositories
             if (funcion == null)
                 throw new Exception("La función no existe.");
 
-            // 2. ¿Tiene reservas?
             if (funcion.ReservaDetalles.Any())
-                return false;  // ❌ No se puede borrar
+                return false;  
 
-            // 3. Eliminar sin reservas
+            // Eliminar sin reservas
             _context.Funciones.Remove(funcion);
             await _context.SaveChangesAsync();
 

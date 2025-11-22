@@ -1,10 +1,10 @@
-// --- Esperamos a que el HTML cargue completamente ---
+
 document.addEventListener("DOMContentLoaded", async () => {
     const params = new URLSearchParams(window.location.search);
     const idPelicula = params.get("id");
     const lista = document.getElementById("lista-funciones");
 
-    // --- Obtenemos token ---
+    // token 
     const token = localStorage.getItem("token");
     if (!token) {
         alert("⚠️ Debes iniciar sesión para ver las funciones.");
@@ -12,16 +12,15 @@ document.addEventListener("DOMContentLoaded", async () => {
         return;
     }
 
-    // --- Mostramos mensaje de carga ---
     lista.innerHTML = `<p class="msg-cargando">Cargando funciones...</p>`;
 
-    // --- Elegimos la URL según si viene película o no ---
+    //  Elegimos la URL según si viene película o no 
     const url = idPelicula
         ? `/api/funciones/pelicula/${idPelicula}`       // Solo funciones de esa película
         : `/api/funciones`;                             // Todas las funciones del sistema
 
     try {
-        // --- Llamada a la API ---
+        // Llama a la API 
         const response = await fetch(url, {
             method: "GET",
             headers: {
@@ -30,7 +29,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             }
         });
 
-        // --- Verificación de estado ---
+        // Verificación de estado 
         if (response.status === 401) {
             alert("⚠️ Sesión expirada o no autorizada. Por favor, inicia sesión nuevamente.");
             localStorage.removeItem("token");
@@ -42,7 +41,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             throw new Error(`Error HTTP ${response.status}`);
         }
 
-        // --- Procesamos las funciones ---
+        // Procesamos las funciones 
         const funciones = await response.json();
 
         if (!funciones || funciones.length === 0) {
@@ -50,7 +49,6 @@ document.addEventListener("DOMContentLoaded", async () => {
             return;
         }
 
-        // --- Render dinámico ---
         lista.innerHTML = funciones.map(f => `
             <div class="card-funcion">
                 <h3>🎬 ${f.nombreSala || f.salaNombre}</h3>

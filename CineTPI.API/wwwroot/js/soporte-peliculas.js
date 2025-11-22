@@ -1,8 +1,8 @@
-// === CONFIGURACIÓN GLOBAL ===
+
 const API_URL = "/api/peliculas";
 const token = localStorage.getItem("token");
 
-// === CARGAR PELÍCULAS ===
+// CARGAR PELICULAS
 async function cargarPeliculas() {
     const tbody = document.getElementById("tbody-peliculas");
     tbody.innerHTML = "<tr><td colspan='6'>Cargando...</td></tr>";
@@ -23,7 +23,6 @@ async function cargarPeliculas() {
     }
 }
 
-// === RENDERIZAR PELÍCULAS ===
 function renderPeliculas(lista) {
     const tbody = document.getElementById("tbody-peliculas");
     tbody.innerHTML = "";
@@ -49,7 +48,7 @@ function renderPeliculas(lista) {
     });
 }
 
-// === GUARDAR PELÍCULA ===
+// GUARDAR PELÍCULA 
 async function guardarPelicula() {
     const id = document.getElementById("pelicula-id").value;
     const titulo = document.getElementById("titulo").value.trim();

@@ -1,4 +1,4 @@
-﻿/* ===== ACERCA DE  ===== */
+﻿/*//ACERCA DE*/  
 
 body {
     margin: 0;
@@ -7,7 +7,7 @@ body {
     color: #f5f5f5;
 }
 
-/* HEADER */
+ /*HEADER*/ 
 
 .about-header {
     display: flex;

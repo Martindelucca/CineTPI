@@ -29,9 +29,9 @@ namespace CineTPI.Domain.Repositories
             {
                 try
                 {
-                    // 2. Obtener la función para saber la hora de inicio
+                    //Obtener la función para saber la hora de inicio
                     var funcion = await _context.Funciones
-                                                .AsNoTracking() // No lo vamos a modificar
+                                                .AsNoTracking() 
                                                 .FirstOrDefaultAsync(f => f.IdFuncion == reservaDto.IdFuncion);
 
                     if (funcion == null)
@@ -44,10 +44,10 @@ namespace CineTPI.Domain.Repositories
                     var fechaHoraInicio = funcion.Fecha.ToDateTime(horario.Horario1);
                     var fechaExpiracion = fechaHoraInicio.AddHours(-2);
 
-                    // 4. Crear la cabecera (dbo.reservas)
+                    // Crear la cabecera
                     var nuevaReserva = new Reserva
                     {
-                        Fecha = DateOnly.FromDateTime(DateTime.Now), // O DateOnly.FromDateTime(DateTime.Now) si tu columna es 'date'
+                        Fecha = DateOnly.FromDateTime(DateTime.Now), 
                         CodCliente = codCliente,
                         IdEstadoReserva = 1, 
                         MontoReserva = 0 
@@ -59,7 +59,7 @@ namespace CineTPI.Domain.Repositories
                     _context.Reservas.Add(nuevaReserva);
                     await _context.SaveChangesAsync(); // Guardamos para obtener el nuevo ID
 
-                    // 5. Crear los detalles (dbo.reserva_detalle)
+                    // Crear los detalles 
                     foreach (var idButaca in reservaDto.IdButacas)
                     {
                         var detalle = new ReservaDetalle
@@ -73,7 +73,7 @@ namespace CineTPI.Domain.Repositories
 
                     await _context.SaveChangesAsync(); // Guardamos los detalles
 
-                    // 6. Si todo salió bien, confirmamos la transacción
+                    // onfirmamos la transacción
                     await transaction.CommitAsync();
 
                     return nuevaReserva;
@@ -99,8 +99,6 @@ namespace CineTPI.Domain.Repositories
                                  .FirstOrDefaultAsync(r => r.IdReserva == id);
         }
 
-        // (También deberías agregar "stubs" o implementaciones vacías
-        // para los otros métodos que exige la interfaz)
         public Task AddAsync(Reserva entity)
         {
             _context.Reservas.Add(entity);
@@ -108,8 +106,7 @@ namespace CineTPI.Domain.Repositories
         }
 
         public Task DeleteAsync(int id)
-        {
-            // ... (lógica de borrado)
+        { 
             throw new NotImplementedException();
         }
 
@@ -120,7 +117,6 @@ namespace CineTPI.Domain.Repositories
 
         public Task UpdateAsync(Reserva entity)
         {
-            // ... (lógica de update)
             throw new NotImplementedException();
         }
     }

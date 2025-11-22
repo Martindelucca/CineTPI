@@ -1,25 +1,21 @@
-// Esperamos a que todo el HTML esté cargado
-// Esperamos a que todo el HTML esté cargado
+
 document.addEventListener("DOMContentLoaded", function() {
 
-    // 1. Obtenemos el formulario
+    // formulario
     const loginForm = document.getElementById("login-form");
     const errorMessage = document.getElementById("error-message");
 
-    // 2. Añadimos un "escuchador" para el evento 'submit'
     loginForm.addEventListener("submit", async function(event) {
 
-        // Prevenimos que el formulario se envíe de la forma tradicional
         event.preventDefault(); 
 
-        // Limpiamos errores previos
         errorMessage.textContent = "";
 
-        // 3. Obtenemos los valores de los inputs
+        // Obtenemos los valores de los inputs
         const nroDoc = document.getElementById("nroDoc").value;
         const password = document.getElementById("password").value;
 
-        // 4. Body idéntico al JSON de Swagger
+        // Body idéntico al JSON de Swagger
         const loginData = {
             nroDoc: nroDoc,
             password: password
@@ -37,7 +33,7 @@ document.addEventListener("DOMContentLoaded", function() {
             if (response.ok) {
                 const data = await response.json();
 
-                // Guardamos token e info mínima
+                // Guardamos token
                 localStorage.setItem('token', data.token);
                 localStorage.setItem('usuarioNombre', data.nombreCompleto || 'Admin');
 

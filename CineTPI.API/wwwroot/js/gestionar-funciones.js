@@ -13,16 +13,16 @@
     const selHorario = document.getElementById("idHorario");
     const tablaBody = document.getElementById("tbody-funciones");
 
-    // 🔹 Cargar selects
+    //Cargar selects
     await cargarPeliculas();
     await cargarSalas();
     await cargarHorarios();
 
-    // 🔹 Cargar funciones existentes
+    // Cargar funciones existentes
     cargarFunciones();
 
-    // 🚀 Crear función nueva
-    // ------------------------------------------
+    // Crear función nueva
+
     document.getElementById("form-funcion").addEventListener("submit", async (e) => {
         e.preventDefault();
 
@@ -52,7 +52,7 @@
     });
 
     //  Carga de combos
-    // ------------------------------------------
+
     async function cargarPeliculas() {
         const resp = await fetch("/api/peliculas", {
             headers: { "Authorization": `Bearer ${token}` }
@@ -87,7 +87,6 @@
     }
 
     //  Cargar tabla de funciones
-    // ------------------------------------------
     async function cargarFunciones() {
         const resp = await fetch("/api/funciones/todas", {
             headers: { "Authorization": `Bearer ${token}` }
@@ -113,8 +112,8 @@
 
 });
 
-//  Función global para eliminar
-// ------------------------------------------
+//  Función  para eliminar
+
 async function eliminarFuncion(id) {
     if (!confirm("¿Seguro que querés borrar esta función?")) return;
 

@@ -18,12 +18,10 @@ namespace CineTPI.Domain.Repositories
         {
             _context = context;
         }
-        // --- Métodos Específicos para Login ---
 
         public async Task<Cliente> GetClienteByDocAndPasswordAsync(string nroDoc, string passwordHash)
         {
             // Busca al cliente por NroDoc y Hash de Password
-            // Este método será usado por nuestro servicio de Login
             return await _context.Clientes
                 .FirstOrDefaultAsync(c => c.NroDoc == nroDoc && c.PasswordHash == passwordHash);
         }
@@ -34,8 +32,6 @@ namespace CineTPI.Domain.Repositories
             return await _context.Clientes
                 .FirstOrDefaultAsync(c => c.NroDoc == nroDoc);
         }
-
-        // --- Métodos Genéricos (CRUD) ---
 
         public async Task<Cliente> GetByIdAsync(int id)
         {
@@ -49,7 +45,6 @@ namespace CineTPI.Domain.Repositories
 
         public async Task AddAsync(Cliente entity)
         {
-            // Aquí iría la lógica para hashear el password antes de guardarlo
             await _context.Clientes.AddAsync(entity);
             await _context.SaveChangesAsync();
         }

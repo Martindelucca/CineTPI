@@ -63,8 +63,7 @@ namespace CineTPI.Domain.Repositories
 
         public async Task<IEnumerable<ButacaEstadoDto>> GetEstadoButacasPorFuncionAsync(int idFuncion)
         {
-            // --- 1. Obtener la Sala de la Función ---
-            // (Usamos AsNoTracking() para que sea una consulta de solo lectura, es más rápido)
+            // Obtener la Sala de la Función 
             var funcion = await _context.Funciones
                                         .AsNoTracking()
                                         .FirstOrDefaultAsync(f => f.IdFuncion == idFuncion);
@@ -74,7 +73,7 @@ namespace CineTPI.Domain.Repositories
                 return new List<ButacaEstadoDto>(); // Función no existe
             }
 
-            // --- 2. Obtener TODAS las butacas de esa sala ---
+            // Obtener TODAS las butacas de esa sala 
             // Esta es nuestra lista "base" de asientos físicos
             var butacasDeLaSala = await _context.Butacas
                                                 .AsNoTracking()
@@ -83,30 +82,27 @@ namespace CineTPI.Domain.Repositories
                                                 .ThenBy(b => b.Numero)
                                                 .ToListAsync();
 
-            // --- 3. Obtener IDs de butacas VENDIDAS para esa función ---
-            // (Asumimos que tu tabla de "tickets vendidos" se llama 'Entradas')
+            // Obtener IDs de butacas VENDIDAS para esa función 
             var idsButacasVendidas = await _context.Entradas
                                                     .AsNoTracking()
                                                     .Where(e => e.IdFuncion == idFuncion)
                                                     .Select(e => e.IdButaca)
-                                                    .ToListAsync(); // ToHashSet es muy rápido para buscar
+                                                    .ToListAsync(); 
 
-            // --- 4. Obtener IDs de butacas RESERVADAS (activas) para esa función ---
-            int ID_ESTADO_RESERVA_ACTIVA = 1; // Asumimos 1 = "Activa"
+            // Obtener IDs de butacas RESERVADAS (activas) para esa función 
+            int ID_ESTADO_RESERVA_ACTIVA = 1; 
 
             var idsButacasReservadas = await _context.ReservaDetalles // Empezamos por el detalle
                                                     .AsNoTracking()
                                                     .Where(rd => rd.IdFuncion == idFuncion)
-                                                    // ¡Hacemos JOIN con la cabecera (Reservas) para filtrar por estado!
                                                     .Join(_context.Reservas,
                                                           detalle => detalle.IdReserva,
                                                           cabecera => cabecera.IdReserva,
-                                                          (detalle, cabecera) => new { detalle, cabecera }) // Objeto anónimo
+                                                          (detalle, cabecera) => new { detalle, cabecera }) 
                                                     .Where(x => x.cabecera.IdEstadoReserva == ID_ESTADO_RESERVA_ACTIVA)
                                                     .Select(x => x.detalle.IdButaca)
                                                     .ToListAsync();
 
-            // --- 5. Combinar todo en C# (en memoria) ---
             // Recorremos la lista de butacas físicas y les asignamos el estado
             var resultado = butacasDeLaSala.Select(b => new ButacaEstadoDto
             {
@@ -114,7 +110,7 @@ namespace CineTPI.Domain.Repositories
                 Fila = b.Fila,
                 Numero = b.Numero,
 
-                // Lógica de estado (¡ahora sí!)
+                // Lógica de estado 
                 Estado = idsButacasVendidas.Contains(b.IdButaca) ? "Vendida" :
                          idsButacasReservadas.Contains(b.IdButaca) ? "Reservada" :
                                                                      "Disponible"

@@ -10,7 +10,7 @@ namespace CineTPI.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    [Authorize(Roles = "Admin")] // ¡Solo Admins pueden ver el dashboard!
+    [Authorize(Roles = "Admin")] 
     public class DashboardController : ControllerBase
     {
         private readonly IDashboardRepository _dashboardRepository;
@@ -33,7 +33,6 @@ namespace CineTPI.API.Controllers
     [FromQuery] DateTime fechaDesde,
     [FromQuery] DateTime fechaHasta)
         {
-            // (Podríamos agregar validaciones de fechas aquí)
             var reporte = await _dashboardRepository.GetReporteRecaudacion(fechaDesde, fechaHasta);
             return Ok(reporte);
         }

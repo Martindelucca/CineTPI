@@ -16,7 +16,7 @@ namespace CineTPI.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    [Authorize] // ¡Protegemos TODAS las rutas de este controlador!
+    [Authorize] // Protegemos TODAS las rutas
     public class FuncionesController : ControllerBase
     {
         private readonly IFuncionRepository _funcionRepository;
@@ -34,13 +34,13 @@ namespace CineTPI.API.Controllers
 
             var funcionesDto = await _funcionRepository.GetFuncionesPorPeliculaAsync(idPelicula);
 
-            // 2. Verificamos si la lista está vacía
+            //Verificamos si la lista está vacía
             if (funcionesDto == null || !funcionesDto.Any())
             {
                 return Ok(new List<FuncionDTO>());
             }
 
-            // 3. Devolvemos la lista de DTOs
+            // Devolvemos la lista de DTOs
             return Ok(funcionesDto);
         }
 

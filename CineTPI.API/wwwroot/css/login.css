@@ -1,11 +1,9 @@
-/* ===== LOGIN  ===== */
-
 /* Paleta cine */
 :root {
     --bg: #0d0d0d;
     --card: #1a1a1a;
-    --accent: #e50914; /* rojo cine */
-    --accent-yellow: #f5c518; /* amarillo premium */
+    --accent: #e50914; 
+    --accent-yellow: #f5c518; 
     --text: #ffffff;
     --muted: #c2c2c2;
     --shadow: 0 8px 26px rgba(0, 0, 0, 0.65);
@@ -18,8 +16,6 @@
     font-family: "Poppins", system-ui, sans-serif;
 }
 
-/* ===== BODY ===== */
-/* ===== BODY ===== */
 body {
     margin: 0;
     min-height: 100vh;
@@ -31,7 +27,6 @@ body {
     overflow: hidden;
 }
 
-/* ===== HEADER ===== */
 .site-header {
     padding: 1.4rem;
     text-align: center;
@@ -42,7 +37,6 @@ body {
     text-shadow: 0 0 8px rgba(245, 197, 24, 0.4);
 }
 
-/* ===== LAYOUT ===== */
 .container {
     flex: 1;
     display: flex;
@@ -51,7 +45,6 @@ body {
     padding: 2rem;
 }
 
-/* ===== CARD ===== */
 .card {
     background: var(--card);
     padding: 2.2rem 2.4rem;
@@ -64,7 +57,6 @@ body {
     animation: fadeIn 0.6s ease;
 }
 
-    /* Glow rojo suave */
     .card::after {
         content: "";
         position: absolute;
@@ -86,7 +78,6 @@ body {
     }
 }
 
-/* ===== TITULOS ===== */
 h1 {
     margin-bottom: 0.4rem;
     text-align: center;
@@ -118,7 +109,6 @@ h1 {
     font-size: 0.95rem;
 }
 
-/* ===== FORM ===== */
 label {
     display: block;
     margin-bottom: 6px;
@@ -143,7 +133,6 @@ input {
         box-shadow: 0 0 0 2px rgba(229, 9, 20, 0.25);
     }
 
-/* ===== BOTON ===== */
 .btn {
     width: 100%;
     margin-top: 1.3rem;
@@ -164,7 +153,6 @@ input {
         box-shadow: 0 0 12px rgba(229, 9, 20, 0.35);
     }
 
-/* ===== ERROR ===== */
 .error {
     color: #ff4d4d;
     font-size: 0.9rem;
@@ -173,7 +161,6 @@ input {
     min-height: 20px;
 }
 
-/* ===== FOOTER ===== */
 .site-footer {
     text-align: center;
     font-size: 0.85rem;

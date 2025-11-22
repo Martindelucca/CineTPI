@@ -55,15 +55,13 @@ namespace CineTPI.Domain.Repositories
             }
         }
 
-        // CARTELERA ====> AHORA DEVUELVE TODAS LAS PELÍCULAS
+        // CARTELERA
         public async Task<IEnumerable<Pelicula>> GetPeliculasEnCarteleraAsync()
         {
             // Por ahora mostramos TODAS LAS PELÍCULAS en cartelera.
-            // (Sin depender de funciones porque no tenemos tiempo)
             return await _context.Peliculas.ToListAsync();
         }
 
-        // (NO USADO ACÁ — viene del AuthService, pero lo dejo)
         public async Task<Cliente> GetClienteByDocAsync(string nroDoc)
         {
             return await _context.Clientes.FirstOrDefaultAsync(c => c.NroDoc == nroDoc);

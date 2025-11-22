@@ -1,6 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
 
-    // --- CONFIGURACIÓN GLOBAL ---
     const token = localStorage.getItem('token');
     if (!token) {
         alert("Sesión expirada. Por favor, vuelva a iniciar sesión.");
@@ -8,9 +7,7 @@ document.addEventListener('DOMContentLoaded', function () {
         return;
     }
 
-    // =============================
-    // REPORTE 1: RESERVAS POR ESTADO
-    // =============================
+    //  RESERVAS POR ESTADO
     const tbodyReservas = document.getElementById('tbody-reporte-reservas');
 
     async function cargarReporteReservas() {
@@ -25,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             const data = await response.json();
             renderReporteReservas(data);
-            renderGraficoReservas(data); // ✅ gráfico dentro del flujo
+            renderGraficoReservas(data); 
         } catch (error) {
             console.error('Error Reporte 1:', error);
             tbodyReservas.innerHTML = '<tr><td colspan="3">Error al cargar reporte.</td></tr>';
@@ -50,9 +47,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // =============================
     // REPORTE 2: RECAUDACIÓN POR PELÍCULA
-    // =============================
     const formRecaudacion = document.getElementById('form-recaudacion');
     const tbodyRecaudacion = document.getElementById('tbody-reporte-recaudacion');
     const inputFechaDesde = document.getElementById('fecha-desde');
@@ -90,7 +85,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             const data = await response.json();
             renderReporteRecaudacion(data);
-            renderGraficoRecaudacion(data); // ✅ agregado
+            renderGraficoRecaudacion(data); // agregado
         } catch (error) {
             console.error('Error Reporte 2:', error);
             tbodyRecaudacion.innerHTML = '<tr><td colspan="4">Error al cargar reporte.</td></tr>';
@@ -116,9 +111,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // =============================
     // REPORTE 3: CLIENTES FRECUENTES
-    // =============================
     const tbodyClientes = document.getElementById('tbody-reporte-clientes');
 
     async function cargarReporteClientes() {
@@ -133,7 +126,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             const data = await response.json();
             renderReporteClientes(data);
-            renderGraficoTopClientes(data); // ✅ agregado
+            renderGraficoTopClientes(data); // agregado
         } catch (error) {
             console.error('Error Reporte 3:', error);
             tbodyClientes.innerHTML = '<tr><td colspan="5">Error al cargar reporte.</td></tr>';
@@ -160,9 +153,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // =============================
     // REPORTE 4: FUNCIONES POR GÉNERO
-    // =============================
     const formFuncionesGenero = document.getElementById('form-funciones-genero');
     const tbodyFuncionesGenero = document.getElementById('tbody-funciones-genero');
 
@@ -217,9 +208,8 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // =============================
     // REPORTE 5: PERFIL DEL CLIENTE
-    // =============================
+
     const formPerfilCliente = document.getElementById('form-perfil-cliente');
     const pcInfo = document.getElementById('pc-info');
     const pcNombre = document.getElementById('pc-nombre');
@@ -276,10 +266,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     <td>${r.fechaDeLaFuncion ? r.fechaDeLaFuncion.split('T')[0] : ''}</td>
                 </tr>`).join('');
     }
-
-    // =============================
-    // GRÁFICOS (CHART.JS)
-    // =============================
+    //GRAFICOS
     function renderGraficoReservas(data) {
         const ctx = document.getElementById('chart-reservas');
         if (!ctx) return;
@@ -330,9 +317,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // =============================
     // CARGA INICIAL
-    // =============================
     cargarReporteReservas();
     cargarReporteRecaudacion();
     cargarReporteClientes();

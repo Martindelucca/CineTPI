@@ -1,6 +1,6 @@
    document.addEventListener('DOMContentLoaded', function() {
 
-    // --- 1. CONFIGURACIÓN ---
+    // CONFIGURACIÓN
     const params = new URLSearchParams(window.location.search);
     const idFuncion = params.get('idFuncion');
     const token = localStorage.getItem('token');
@@ -14,10 +14,10 @@
     if (!idFuncion) {
         alert('Función no válida.');
         window.location.href = 'index.html';
-        return; // Salimos temprano si no hay ID
+        return; // SalimOS si no hay ID
     }
 
-    // --- 2. LLAMAR A LA API ---
+    // LLAMAR A LA API 
     async function cargarButacas() {
         try {
             const response = await fetch(`/api/butacas/funcion/${idFuncion}`, {
@@ -38,7 +38,6 @@
         }
     }
 
-    // --- 3. DIBUJAR LA GRILLA ---
     function renderButacas(butacas) {
         grid.innerHTML = ''; // Limpiar grilla
         butacas.forEach(butaca => {
@@ -57,7 +56,6 @@
         });
     }
 
-    // --- 4. LÓGICA DE SELECCIÓN ---
     function toggleSeleccionButaca(event) {
         const butacaEl = event.target;
         const idButaca = parseInt(butacaEl.dataset.idButaca);
@@ -85,7 +83,6 @@
         });
     }
     
-    // --- 5. LÓGICA DE CONFIRMACIÓN ---
     btnConfirmar.addEventListener('click', async function() {
         if (butacasSeleccionadas.length === 0) {
             alert('Debe seleccionar al menos una butaca.');
@@ -123,6 +120,6 @@
     }); 
 
     // --- INICIAR ---
-    cargarButacas(); // Esta línea ahora sí se ejecutará
+    cargarButacas(); 
 
 }); 

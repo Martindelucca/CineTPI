@@ -1,4 +1,4 @@
-/* ===== CARTELERA ===== */
+/*  CARTELERA */
 
 /* Fondo general */
 body {
@@ -9,7 +9,6 @@ body {
     color: #ffffff;
 }
 
-/* ===== HEADER ===== */
 .main-header {
     background-color: #1a1a1a;
     border-bottom: 3px solid #e50914;
@@ -27,7 +26,6 @@ body {
         letter-spacing: 1px;
     }
 
-/* ===== NAV ===== */
 .main-nav a {
     color: #ffffff;
     text-decoration: none;
@@ -44,7 +42,7 @@ body {
         box-shadow: 0 0 10px rgba(229, 9, 20, 0.5);
     }
 
-/* ===== CONTENEDOR DE PELÍCULAS ===== */
+/* CONTENEDOR DE PELÍCULAS */
 .cartelera-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -52,7 +50,6 @@ body {
     padding: 2.5rem;
 }
 
-/* Mensaje de carga */
 .loading {
     grid-column: 1 / -1;
     text-align: center;
@@ -60,7 +57,7 @@ body {
     color: #c2c2c2;
 }
 
-/* ===== CARD DE PELÍCULA ===== */
+/*  CARD DE PELÍCULA */
 .card {
     background: #1a1a1a;
     border-radius: 12px;
@@ -72,7 +69,6 @@ body {
     position: relative;
 }
 
-    /* Glow rojo suave */
     .card:hover {
         transform: translateY(-8px) scale(1.02);
         border-color: #e50914;
@@ -95,7 +91,7 @@ body {
         line-height: 1.4;
     }
 
-/* ===== BOTÓN FUNCIONES ===== */
+/* BOTÓN FUNCIONES */
 .btn-funciones {
     margin-top: 1rem;
     background-color: #e50914;
@@ -114,7 +110,7 @@ body {
         box-shadow: 0 0 10px rgba(229, 9, 20, 0.4);
     }
 
-/* ===== FOOTER ===== */
+/* FOOTER */
 .main-footer {
     text-align: center;
     padding: 1.3rem;

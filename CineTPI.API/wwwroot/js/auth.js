@@ -1,5 +1,3 @@
-// Este script se ejecuta INMEDIATAMENTE (desde <head>)
-
 const token = localStorage.getItem('token');
 
 // Si no hay token, redirige a login SOLO en páginas protegidas
@@ -20,7 +18,7 @@ if (!token) {
     }
 }
 
-// Función genérica para cerrar sesión
+// Función para cerrar sesión
 function logout() {
     localStorage.removeItem("token");
     localStorage.removeItem("usuarioNombre");

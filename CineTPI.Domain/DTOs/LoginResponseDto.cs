@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 namespace CineTPI.Domain.DTOs
 {
-    // DTO para responder con el resultado del Login
     public class LoginResponseDto
     {
         public int CodCliente { get; set; }

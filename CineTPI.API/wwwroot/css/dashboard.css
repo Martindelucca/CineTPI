@@ -1,6 +1,6 @@
-/* ================================
-   🎬 DASHBOARD CINE TPI - PREMIUM
-   ================================ */
+
+    /*DASHBOARD*/ 
+
 
 body {
     margin: 0;
@@ -10,9 +10,6 @@ body {
     font-family: "Poppins", sans-serif;
 }
 
-/* ======================
-   SIDEBAR
-   ====================== */
 .sidebar {
     width: 240px;
     height: 100vh;
@@ -29,7 +26,7 @@ body {
     .sidebar h4 {
         font-weight: 700;
         margin-bottom: 2rem;
-        color: #f5c518; /* amarillo premium */
+        color: #f5c518; 
         text-transform: uppercase;
         letter-spacing: 1px;
         text-shadow: 0 0 8px rgba(245, 197, 24, 0.35);
@@ -57,17 +54,12 @@ body {
             box-shadow: 0 0 10px rgba(245, 197, 24, 0.3);
         }
 
-/* ======================
-   CONTENIDO PRINCIPAL
-   ====================== */
+   /*CONTENIDO PRINCIPAL*/
 .content {
     margin-left: 260px;
     padding: 30px;
 }
 
-/* ======================
-   NAVBAR SUPERIOR
-   ====================== */
 .navbar {
     background-color: #1a1a1a !important;
     border: 2px solid #333;
@@ -95,9 +87,7 @@ body {
         color: #ff6b6b !important;
     }
 
-/* ======================
-   TABLAS
-   ====================== */
+   /*TABLAS*/
 .table {
     background-color: #1b1b1b;
     color: #ececec;
@@ -112,7 +102,7 @@ body {
     }
 
         .table thead th {
-            color: #f5c518; /* amarillo premium */
+            color: #f5c518; 
         }
 
     .table tbody tr:hover {
@@ -124,9 +114,7 @@ body {
         padding: 0.9rem;
     }
 
-/* ======================
-   TARJETAS / MÉTRICAS
-   ====================== */
+   /*TARJETAS / MÉTRICAS*/
 .p-3.bg-light {
     background-color: #1a1a1a !important;
     color: #eaeaea;
@@ -145,9 +133,7 @@ body {
     color: #bbbbbb !important;
 }
 
-/* ======================
-   BOTONES
-   ====================== */
+   /*BOTONES*/
 .btn-dark {
     background-color: #e50914 !important;
     color: #fff !important;
@@ -164,9 +150,7 @@ body {
         box-shadow: 0 0 10px rgba(229, 9, 20, 0.35);
     }
 
-/* ======================
-   TITULOS
-   ====================== */
+   /*TITULOS*/
 h3 {
     color: #f5c518;
     font-weight: 700;
@@ -174,9 +158,6 @@ h3 {
     text-shadow: 0 0 8px rgba(245, 197, 24, 0.35);
 }
 
-/* ======================
-   GRAFICOS / CHARTS
-   ====================== */
 .chart-container {
     width: 100%;
     max-width: 650px;
@@ -194,9 +175,6 @@ h3 {
         box-shadow: 0 0 14px rgba(229, 9, 20, 0.1);
     }
 
-/* ======================
-   INPUTS
-   ====================== */
 label {
     color: #f5c518;
     font-weight: 600;
@@ -214,9 +192,6 @@ label {
         box-shadow: 0 0 0 2px rgba(229, 9, 20, 0.3);
     }
 
-/* ======================
-   SCROLLBAR PREMIUM
-   ====================== */
 ::-webkit-scrollbar {
     width: 9px;
 }

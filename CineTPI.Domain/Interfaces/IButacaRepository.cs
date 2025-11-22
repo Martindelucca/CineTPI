@@ -10,7 +10,7 @@ namespace CineTPI.Domain.Interfaces
 {
     public interface IButacaRepository : IRepository<Butaca>
     {
-        // Método clave: Traer todas las butacas de una sala específica
+        //  Traer todas las butacas de una sala específica
         Task<IEnumerable<Butaca>> GetButacasPorSalaAsync(int idSala);
 
         Task<IEnumerable<ButacaEstadoDto>> GetEstadoButacasPorFuncionAsync(int idFuncion);

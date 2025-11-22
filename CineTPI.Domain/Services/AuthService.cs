@@ -26,7 +26,7 @@ namespace CineTPI.Domain.Services
 
         public async Task<LoginResponseDto> LoginAsync(LoginRequestDto loginRequest)
         {
-            // 1. Buscar al usuario por su NroDoc
+            // Buscar al usuario por su NroDoc
 
             var nroDocLimpio = loginRequest.NroDoc.Trim();
             var cliente = await _clienteRepository.GetClienteByDocAsync(nroDocLimpio);
@@ -36,7 +36,7 @@ namespace CineTPI.Domain.Services
                 return null; // Usuario no existe
             }
 
-            // 2. Verificar la contraseña usando BCrypt
+            // Verificar la contraseña usando BCrypt
             var inputPassword = loginRequest.Password.Trim();
             var dbHash = cliente.PasswordHash.Trim();
 
@@ -47,12 +47,11 @@ namespace CineTPI.Domain.Services
                 return null; // Contraseña incorrecta
             }
 
-            // 3. ¡Usuario válido! Generar el Token JWT
             var token = GenerateJwtToken(cliente);
             Console.WriteLine($"🧾 Rol del usuario autenticado: {cliente.NroDoc}");
 
 
-            // 4. Devolver el DTO de respuesta
+            //  Devolver el DTO de respuesta
             return new LoginResponseDto
             {
                 CodCliente = cliente.CodCliente,
@@ -71,7 +70,6 @@ namespace CineTPI.Domain.Services
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
-            // Los "Claims" son la información del usuario que va DENTRO del token
             var claims = new List<Claim>
             {
                 new Claim(JwtRegisteredClaimNames.Sub, cliente.CodCliente.ToString()), // ID del usuario
@@ -95,7 +93,7 @@ namespace CineTPI.Domain.Services
                 issuer: jwtIssuer,
                 audience: jwtAudience,
                 claims: claims,
-                expires: DateTime.Now.AddHours(8), // El "pase" vence en 8 horas
+                expires: DateTime.Now.AddHours(8), 
                 signingCredentials: credentials);
 
             return new JwtSecurityTokenHandler().WriteToken(token);

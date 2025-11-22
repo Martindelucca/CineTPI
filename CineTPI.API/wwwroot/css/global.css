@@ -1,6 +1,4 @@
-﻿/* ====== GLOBAL STYLES - CINE STYLE ====== */
-
-/* Reset básico */
+﻿
 * {
     margin: 0;
     padding: 0;
@@ -13,8 +11,7 @@ body {
     color: #ffffff;
     min-height: 100vh;
 }
-
-/* ====== HEADERS GENERALES ====== */
+/* HEADERS */
 header {
     background: #1a1a1a;
     padding: 15px 25px;
@@ -56,7 +53,7 @@ header {
         background-color: #b00710;
     }
 
-/* ====== CONTENEDORES GENERALES ====== */
+/* CONTENEDORES  */
 main {
     padding: 20px;
 }
@@ -74,7 +71,7 @@ main {
         border-color: #e50914;
     }
 
-/* ====== BOTONES ====== */
+/*  BOTONES */
 .btn {
     display: inline-block;
     padding: 10px 18px;
@@ -95,7 +92,6 @@ main {
         background-color: #b00710;
     }
 
-/* Secundario */
 .btn-secondary {
     background-color: #333;
     color: #fff;
@@ -105,7 +101,7 @@ main {
         background-color: #444;
     }
 
-/* ====== TABLAS ====== */
+/* TABLAS  */
 table {
     width: 100%;
     border-collapse: collapse;
@@ -126,7 +122,7 @@ tbody tr:hover {
     background-color: #222;
 }
 
-/* ====== FORMULARIOS ====== */
+/* FORMULARIOS */
 input, select, textarea {
     width: 100%;
     padding: 10px;
@@ -156,7 +152,7 @@ footer {
     border-top: 1px solid #333333;
     margin-top: 40px;
 }
-/* HEADER UNIVERSAL CINE-TPI */
+/* HEADER UNIVERSAL  */
 
 .main-header {
     display: flex;

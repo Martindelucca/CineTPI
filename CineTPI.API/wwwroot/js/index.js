@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     const token = localStorage.getItem('token');
 
-    // Solo eliminar el botón "Cerrar sesión" si no hay token
+    // eliminar el botón Cerrar sesión si no hay token
     const btnLogout = document.querySelector('.btn-logout');
     const btnAdmin = document.querySelector('a[href="admin.html"]');
 

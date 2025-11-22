@@ -1,6 +1,4 @@
-﻿/* ===== BUTACAS CINE ===== */
-
-body {
+﻿body {
     font-family: "Poppins", sans-serif;
     background: radial-gradient(circle at top, #1b1b1b 0%, #0d0d0d 80%);
     color: #ffffff;
@@ -8,7 +6,6 @@ body {
     padding: 0;
 }
 
-/* HEADER */
 header {
     background-color: #1a1a1a;
     padding: 1.2rem;
@@ -57,7 +54,7 @@ main {
 
     /* LIBRE */
     .butaca.Disponible {
-        background: #f5c518; /* amarillo premium */
+        background: #f5c518;
         color: #111;
         font-weight: 600;
     }
@@ -78,13 +75,12 @@ main {
 
     /* SELECCIONADA */
     .butaca.Seleccionada {
-        background: #1b98f5; /* azul cine (HBO style) */
+        background: #1b98f5;
         color: #fff;
         font-weight: bold;
         box-shadow: 0 0 12px rgba(27, 152, 245, 0.5);
     }
 
-/* TÍTULOS */
 h3 {
     color: #f5c518;
     margin-top: 2rem;
